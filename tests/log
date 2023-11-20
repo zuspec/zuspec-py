@@ -1,9 +1,4 @@
-==960358== Memcheck, a memory error detector
-==960358== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==960358== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
-==960358== Command: ../packages/python/bin/python -m unittest
-==960358== 
-debug_mgr_getFactory() 0x6c97de0
+debug_mgr_getFactory() 0x25b3340
 /project/fun/zuspec/zuspec-py/packages/zuspec-be-py/src/zsp_be_py/impl/runner_backend_async_io.py:28: DeprecationWarning: There is no current event loop
   self.loop = asyncio.get_event_loop()
 zsp::parser::AstBuilderInt: -- push_scope
@@ -2092,16 +2087,9 @@ zsp::parser::AstBuilderInt: -- push_scope
 zsp::parser::AstBuilderInt: -- pop_scope
 zsp::parser::AstBuilderInt: -- pop_scope
 zsp::parser::AstBuilderInt: -- push_scope
---> zsp::parser::AstBuilderInt::visitFunction_decl
-zsp::parser::AstBuilderInt: mkId: doit
---> zsp::parser::AstBuilderInt::mkFunctionParamDecl
---> zsp::parser::AstBuilderInt::visitInteger_type
-<-- zsp::parser::AstBuilderInt::visitInteger_type
-zsp::parser::AstBuilderInt: mkId: i
-<-- zsp::parser::AstBuilderInt::mkFunctionParamDecl
-<-- zsp::parser::AstBuilderInt::visitFunction_decl
---> zsp::parser::AstBuilderInt::visitImport_function
-<-- zsp::parser::AstBuilderInt::visitImport_function
+--> zsp::parser::AstBuilderInt::visitPyimport_single_module
+zsp::parser::AstBuilderInt: mkId: local
+<-- zsp::parser::AstBuilderInt::visitPyimport_single_module
 --> zsp::parser::AstBuilderInt::visitComponent_declaration
 zsp::parser::AstBuilderInt: mkId: pss_top
 zsp::parser::AstBuilderInt: -- push_scope
@@ -2149,8 +2137,12 @@ zsp::parser::AstBuilderInt: mkId: j
 --> zsp::parser::AstBuilderInt::visitExpression
 --> zsp::parser::AstBuilderInt::visitRef_path
 --> zsp::parser::AstBuilderInt::mkExprRefPath
-zsp::parser::AstBuilderInt: !static_ref_path: ExprRefPathContext
---> zsp::parser::AstBuilderInt::mkHierarchicalId
+zsp::parser::AstBuilderInt: static_ref_path: 
+zsp::parser::AstBuilderInt: !hierarchical_id: 
+zsp::parser::AstBuilderInt: case2 (multi-element path) size=0
+zsp::parser::AstBuilderInt: Add root elem
+zsp::parser::AstBuilderInt: mkId: local
+--> zsp::parser::AstBuilderInt::mkHierarchicalId(member_path_elem)
 zsp::parser::AstBuilderInt: mkId: doit
 --> zsp::parser::AstBuilderInt::visitExpression
 --> zsp::parser::AstBuilderInt::visitRef_path
@@ -2162,24 +2154,11 @@ zsp::parser::AstBuilderInt: mkId: i
 <-- zsp::parser::AstBuilderInt::mkExprRefPath
 <-- zsp::parser::AstBuilderInt::visitRef_path
 <-- zsp::parser::AstBuilderInt::visitExpression
-<-- zsp::parser::AstBuilderInt::mkHierarchicalId
+<-- zsp::parser::AstBuilderInt::mkHierarchicalId(member_path_elem)
 <-- zsp::parser::AstBuilderInt::mkExprRefPath
 <-- zsp::parser::AstBuilderInt::visitRef_path
 <-- zsp::parser::AstBuilderInt::visitExpression
 <-- zsp::parser::AstBuilderInt::visitProcedural_assignment_stmt
---> zsp::parser::AstBuilderInt::visitProcedural_void_function_call_stmt
---> zsp::parser::AstBuilderInt::visitExpression
---> zsp::parser::AstBuilderInt::visitRef_path
---> zsp::parser::AstBuilderInt::mkExprRefPath
-zsp::parser::AstBuilderInt: !static_ref_path: ExprRefPathContext
---> zsp::parser::AstBuilderInt::mkHierarchicalId
-zsp::parser::AstBuilderInt: mkId: j
-<-- zsp::parser::AstBuilderInt::mkHierarchicalId
-<-- zsp::parser::AstBuilderInt::mkExprRefPath
-<-- zsp::parser::AstBuilderInt::visitRef_path
-<-- zsp::parser::AstBuilderInt::visitExpression
-zsp::parser::AstBuilderInt: mkId: doit
-<-- zsp::parser::AstBuilderInt::visitProcedural_void_function_call_stmt
 <-- zsp::parser::AstBuilderInt::visitExec_block
 zsp::parser::AstBuilderInt: -- pop_scope
 <-- zsp::parser::AstBuilderInt::visitAction_declaration
@@ -2425,8 +2404,8 @@ TaskBuildSymbolTree:   Param:
 TaskBuildSymbolTree:   process name-elem std_pkg
 Add package std_pkg with id 4
 <-- TaskBuildSymbolTree::visitPackageScope
---> TaskBuildSymbolTree::visitFunctionPrototype doit
-<-- TaskBuildSymbolTree::visitFunctionPrototype doit
+--> TaskBuildSymbolTree::visitPyImportStmt
+<-- TaskBuildSymbolTree::visitPyImportStmt
 --> TaskBuildSymbolTree::visitTypeScope pss_top
 TaskBuildSymbolTree: No plist
 --> TaskBuildSymbolTree::visitTypeScope Entry
@@ -2441,8 +2420,6 @@ TaskBuildSymbolTree: Add field to scope Entry
 <-- TaskBuildSymbolTree::visitField j
 --> TaskBuildSymbolTree::visitExecBlock
 --> TaskBuildSymbolTree::visitExecScope
---> TaskBuildSymbolTree::visitExecStmt
-<-- TaskBuildSymbolTree::visitExecStmt
 --> TaskBuildSymbolTree::visitExecStmt
 <-- TaskBuildSymbolTree::visitExecStmt
 --> TaskBuildSymbolTree::visitExecStmt
@@ -2465,7 +2442,7 @@ TaskBuildSymbolTree: Add field to scope Entry
 --> TaskResolveRef::visitTypeIdentifier executor_pkg
 --> TaskResolveRootRef::resolve executor_pkg
 --> TaskResolveRootRef::visitSymbolScope id=executor_pkg (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
 --> zsp::parser::TaskResolveEnumRef::resolve
 --> zsp::parser::TaskResolveEnumRef::visitSymbolEnumScope endianness_e (looking for executor_pkg)
 <-- zsp::parser::TaskResolveEnumRef::visitSymbolEnumScope endianness_e
@@ -2476,22 +2453,24 @@ TaskResolveRootRef: imports: 0x10d7be90
 --> TaskResolveRootRef::searchImport executor_pkg
 TaskResolveRootRef: Skipping, due to unset import target
 <-- TaskResolveRootRef::searchImports (nil)
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 --> AstSymbolTableIterator::popScope 2
 <-- AstSymbolTableIterator::popScope - sz=1
 --> TaskResolveRootRef::visitSymbolScope id=executor_pkg ()
 TaskResolveRootRef: imports: (nil)
+TaskResolveRootRef: Found symbol @ index 2
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71354e0 (1)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28a7060 (1)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x6dc2468
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x28a8558
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 2
-<-- TaskResolveRef::resolve 0x71354e0 (1)
+<-- TaskResolveRef::resolve 0x28a7060 (1)
 <-- TaskResolveImports::  Resolve path
 <-- TaskResolveImports::visitPackageImportStmt
 <-- TaskResolveImports::resolve
@@ -2555,7 +2534,7 @@ TaskResolveRef:   0 2
 --> TaskResolveRef::visitTypeIdentifier executor_base_c
 --> TaskResolveRootRef::resolve executor_base_c
 --> TaskResolveRootRef::visitSymbolScope id=executor_base_c (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
 --> zsp::parser::TaskResolveEnumRef::resolve
 --> zsp::parser::TaskResolveEnumRef::visitSymbolEnumScope endianness_e (looking for executor_base_c)
 <-- zsp::parser::TaskResolveEnumRef::visitSymbolEnumScope endianness_e
@@ -2566,26 +2545,27 @@ TaskResolveRootRef: imports: 0x10d7be90
 --> TaskResolveRootRef::searchImport executor_base_c
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x6dc2468 ; target_s: 0x6dc2468
+TaskResolveRootRef: target_c: 0x28a8558 ; target_s: 0x28a8558
 TaskResolveRootRef: Have a symbol scope (executor_pkg)
 TaskResolveRootRef: Found the symbol (executor_base_c)
 <-- TaskResolveRootRef::searchImport executor_base_c
-<-- TaskResolveRootRef::searchImports 0x7135860
+<-- TaskResolveRootRef::searchImports 0x29a8a90
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x7135860 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29a8a90 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x6dc2468
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x28a8558
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x6dc2468 => 0x6e34a40
+TaskResolveSymbolPathRef:   scope 0x28a8558 => 0x2830b90
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 2
 TaskResolveRef:   0 2
-<-- TaskResolveRef::resolve 0x7135860 (2)
+<-- TaskResolveRef::resolve 0x29a8a90 (2)
 AstSymbolTableIterator: Scope:  @ 0
 AstSymbolTableIterator: Scope: executor_pkg @ 0
 TaskApplyTypeExtensions: Target scope: executor_base_c
@@ -2640,29 +2620,31 @@ TaskApplyTypeExtensions: Target scope: executor_base_c
 --> TaskResolveRef::visitTypeIdentifier addr_reg_pkg
 --> TaskResolveRootRef::resolve addr_reg_pkg
 --> TaskResolveRootRef::visitSymbolScope id=addr_reg_pkg (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_reg_pkg
 TaskResolveRootRef: Skipping, due to unset import target
 <-- TaskResolveRootRef::searchImports (nil)
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 --> AstSymbolTableIterator::popScope 2
 <-- AstSymbolTableIterator::popScope - sz=1
 --> TaskResolveRootRef::visitSymbolScope id=addr_reg_pkg ()
 TaskResolveRootRef: imports: (nil)
+TaskResolveRootRef: Found symbol @ index 1
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x7136120 (1)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29c8530 (1)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
-<-- TaskResolveRef::resolve 0x7136120 (1)
+<-- TaskResolveRef::resolve 0x29c8530 (1)
 <-- TaskResolveImports::  Resolve path
 <-- TaskResolveImports::visitPackageImportStmt
 <-- TaskResolveImports::resolve
@@ -2690,8 +2672,6 @@ TaskResolveRef:   0 1
 --> AstSymbolTableIterator::popScope 2
 <-- AstSymbolTableIterator::popScope - sz=1
 <-- TaskApplyTypeExtensions::visitSymbolScope
---> TaskApplyTypeExtensions::visitSymbolFunctionScope
-<-- TaskApplyTypeExtensions::visitSymbolFunctionScope
 --> TaskApplyTypeExtensions::visitSymbolTypeScope pss_top
 <-- TaskApplyTypeExtensions::visitSymbolTypeScope
 <-- TaskApplyTypeExtensions::visitSymbolScope
@@ -2990,10 +2970,6 @@ TaskResolveRef:   0 1
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 <-- TaskLinkActionCompRefFields::visitSymbolScope std_pkg
---> TaskLinkActionCompRefFields::visitSymbolScope doit
---> AstSymbolTableIterator::popScope 3
-<-- AstSymbolTableIterator::popScope - sz=2
-<-- TaskLinkActionCompRefFields::visitSymbolScope doit
 --> TaskLinkActionCompRefFields::visitSymbolTypeScope pss_top
 --> TaskLinkActionCompRefFields::visitComponent pss_top
 <-- TaskLinkActionCompRefFields::visitComponent pss_top
@@ -3051,28 +3027,30 @@ TaskResolveRefs: empty_addr_trait_s Has a super type ... resolving
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_trait_s (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 1
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x6e69d60 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2823ca0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d7df20
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x278a050
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 1
-<-- TaskResolveRef::resolve 0x6e69d60 (2)
+<-- TaskResolveRef::resolve 0x2823ca0 (2)
 <-- TaskResolveRefs::visitTypeIdentifier
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
@@ -3127,22 +3105,23 @@ TaskResolveRefs: Note: Skipping symbol resolution in a templated type
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x6e69fe0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2998c50 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x6e69fe0 (2)
+<-- TaskResolveRef::resolve 0x2998c50 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 --> TaskResolveRefs::visitSymbolTypeScope sized_addr_handle_s (param=true specialized=false)
@@ -3155,22 +3134,23 @@ TaskResolveRefs: Note: Skipping symbol resolution in a templated type
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x6e6a260 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28af970 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x6e6a260 (2)
+<-- TaskResolveRef::resolve 0x28af970 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 --> TaskResolveRefs::visitDataTypeUserDefined
@@ -3178,22 +3158,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_claim_base_s
 --> TaskResolveRootRef::resolve addr_claim_base_s
 --> TaskResolveRootRef::visitSymbolScope id=addr_claim_base_s (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 9
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x6e6a580 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29cd390 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 9
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 9
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d2f8e0
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x29c4be0
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 9
-<-- TaskResolveRef::resolve 0x6e6a580 (2)
+<-- TaskResolveRef::resolve 0x29cd390 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3205,22 +3186,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x6e6a780 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x27fc990 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x6e6a780 (2)
+<-- TaskResolveRef::resolve 0x27fc990 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 --> TaskResolveRefs::visitDataTypeUserDefined
@@ -3228,22 +3210,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x723f840 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28ab9c0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x723f840 (2)
+<-- TaskResolveRef::resolve 0x28ab9c0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3255,22 +3238,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x723fac0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28fafc0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x723fac0 (2)
+<-- TaskResolveRef::resolve 0x28fafc0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3282,22 +3266,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x723fde0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29b2e90 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x723fde0 (2)
+<-- TaskResolveRef::resolve 0x29b2e90 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3309,22 +3294,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x7240060 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2904b30 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x7240060 (2)
+<-- TaskResolveRef::resolve 0x2904b30 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3336,22 +3322,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x72402e0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x280e770 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x72402e0 (2)
+<-- TaskResolveRef::resolve 0x280e770 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3363,22 +3350,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x72405b0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2904a10 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x72405b0 (2)
+<-- TaskResolveRef::resolve 0x2904a10 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3390,22 +3378,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x7240830 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29bf280 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x7240830 (2)
+<-- TaskResolveRef::resolve 0x29bf280 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3417,22 +3406,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x7240ab0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28684a0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x7240ab0 (2)
+<-- TaskResolveRef::resolve 0x28684a0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3444,22 +3434,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71c7580 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2875160 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x71c7580 (2)
+<-- TaskResolveRef::resolve 0x2875160 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3471,22 +3462,23 @@ TaskResolveRefs: Success
 --> TaskResolveRef::visitTypeIdentifier addr_handle_t
 --> TaskResolveRootRef::resolve addr_handle_t
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e6bc0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28164b0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x73e6bc0 (2)
+<-- TaskResolveRef::resolve 0x28164b0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3524,28 +3516,30 @@ TaskResolveRefs: No super type
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (addr_reg_pkg)
-TaskResolveRootRef: imports: 0x10d7be90
+TaskResolveRootRef: imports: 0x2750fb0
+TaskResolveRootRef: Found symbol @ index 3
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e6ea0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29c79f0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x73e6ea0 (2)
+<-- TaskResolveRef::resolve 0x29c79f0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3582,28 +3576,30 @@ TaskResolveRefs: empty_executor_trait_s Has a super type ... resolving
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=executor_trait_s (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
+TaskResolveRootRef: Found symbol @ index 0
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e7260 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x287a2e0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x6dc2468
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x28a8558
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x6dc2468 => 0x7463090
+TaskResolveSymbolPathRef:   scope 0x28a8558 => 0x29a4150
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 2
 TaskResolveRef:   0 0
-<-- TaskResolveRef::resolve 0x73e7260 (2)
+<-- TaskResolveRef::resolve 0x287a2e0 (2)
 <-- TaskResolveRefs::visitTypeIdentifier
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
@@ -3621,39 +3617,41 @@ TaskResolveRefs: No super type
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x73e74a0
+<-- TaskResolveRootRef::searchImports 0x2815eb0
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e74a0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2815eb0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x73e74a0 (2)
+<-- TaskResolveRef::resolve 0x2815eb0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3669,39 +3667,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x73e7780
+<-- TaskResolveRootRef::searchImports 0x2875950
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e7780 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2875950 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x73e7780 (2)
+<-- TaskResolveRef::resolve 0x2875950 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3717,39 +3717,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x73e7a10
+<-- TaskResolveRootRef::searchImports 0x29c99a0
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e7a10 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29c99a0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x73e7a10 (2)
+<-- TaskResolveRef::resolve 0x29c99a0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3765,39 +3767,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x73e7ca0
+<-- TaskResolveRootRef::searchImports 0x29c02f0
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x73e7ca0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x29c02f0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x73e7ca0 (2)
+<-- TaskResolveRef::resolve 0x29c02f0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3813,39 +3817,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x71c76c0
+<-- TaskResolveRootRef::searchImports 0x28ffc50
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71c76c0 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x28ffc50 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x71c76c0 (2)
+<-- TaskResolveRef::resolve 0x28ffc50 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3861,39 +3867,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x71c7900
+<-- TaskResolveRootRef::searchImports 0x2904aa0
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71c7900 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2904aa0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x71c7900 (2)
+<-- TaskResolveRef::resolve 0x2904aa0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3909,39 +3917,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x71c7b90
+<-- TaskResolveRootRef::searchImports 0x2821aa0
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71c7b90 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2821aa0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x71c7b90 (2)
+<-- TaskResolveRef::resolve 0x2821aa0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -3957,39 +3967,41 @@ TaskResolveRefs: Success
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
 --> TaskResolveRootRef::visitSymbolScope id=addr_handle_t (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
 --> TaskResolveRootRef::searchImports
 --> TaskResolveRootRef::searchImport addr_handle_t
 TaskResolveRootRef: Imp Path[0] 0
 AstSymbolTableIterator: Scope:  @ 0
-TaskResolveRootRef: target_c: 0x10d7a5f8 ; target_s: 0x10d7a5f8
+TaskResolveRootRef: target_c: 0x29cc668 ; target_s: 0x29cc668
 TaskResolveRootRef: Have a symbol scope (addr_reg_pkg)
 TaskResolveRootRef: Found the symbol (addr_handle_t)
 <-- TaskResolveRootRef::searchImport addr_handle_t
-<-- TaskResolveRootRef::searchImports 0x71c7e20
+<-- TaskResolveRootRef::searchImports 0x279fd10
+TaskResolveRootRef: Found symbol via imports
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71c7e20 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x279fd10 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 1
 TaskResolveRef:   0 3
-<-- TaskResolveRef::resolve 0x71c7e20 (2)
+<-- TaskResolveRef::resolve 0x279fd10 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -4013,22 +4025,23 @@ TaskResolveRefs: Note: Skipping symbol resolution in a templated type
 --> TaskResolveRef::visitTypeIdentifier executor_base_c
 --> TaskResolveRootRef::resolve executor_base_c
 --> TaskResolveRootRef::visitSymbolScope id=executor_base_c (executor_pkg)
-TaskResolveRootRef: imports: 0x7462e70
+TaskResolveRootRef: imports: 0x28efbd0
+TaskResolveRootRef: Found symbol @ index 2
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x71c8020 (2)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x2966bf0 (2)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x6dc2468
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x28a8558
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x6dc2468 => 0x6e34a40
+TaskResolveSymbolPathRef:   scope 0x28a8558 => 0x2830b90
 <-- TaskResolveSymbolPathRef::resolve
 <-- TaskResolveRef::visitTypeIdentifier
 TaskResolveRef: Result:
 TaskResolveRef:   0 2
 TaskResolveRef:   0 2
-<-- TaskResolveRef::resolve 0x71c8020 (2)
+<-- TaskResolveRef::resolve 0x2966bf0 (2)
 TaskResolveRefs: Success
 <-- TaskResolveRefs::visitDataTypeUserDefined
 <-- TaskResolveRefs::visitFunctionPrototype
@@ -4045,10 +4058,6 @@ TaskResolveRefs: Note: Skipping symbol resolution in a templated type
 --> AstSymbolTableIterator::popScope 2
 <-- AstSymbolTableIterator::popScope - sz=1
 <-- TaskResolveRefs::visitSymbolScope "std_pkg"
---> TaskResolveRefs::visitSymbolFunctionScope doit (1)
---> TaskResolveRefs::visitFunctionPrototype
-<-- TaskResolveRefs::visitFunctionPrototype
-<-- TaskResolveRefs::visitSymbolFunctionScope doit
 --> TaskResolveRefs::visitSymbolTypeScope pss_top (param=false specialized=false)
 TaskResolveRefs: No super type
 --> TaskResolveRefs::visitSymbolTypeScope Entry (param=false specialized=false)
@@ -4068,22 +4077,23 @@ TaskResolveRefs: Note: Skip during core symbol resolution
 --> TaskResolveRootRef::visitSymbolTypeScope id=i (Entry)
 --> TaskResolveRootRef::visitSymbolScope id=i (Entry)
 TaskResolveRootRef: imports: (nil)
+TaskResolveRootRef: Found symbol @ index 1
 <-- TaskResolveRootRef::visitSymbolScope
-TaskResolveRootRef: TypeScope: m_ref=0x71c83d0 plist=(nil)
-<-- TaskResolveRootRef::visitSymbolTypeScope 0x71c83d0
-<-- TaskResolveRootRef::resolve 0x71c83d0 (3)
-<-- TaskResolveRef::visitExprId i (0x71c83d0)
-<-- TaskResolveRef::resolve (RefPath) 0x71c83d0 (3)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+TaskResolveRootRef: TypeScope: m_ref=0x284eb00 plist=(nil)
+<-- TaskResolveRootRef::visitSymbolTypeScope 0x284eb00
+<-- TaskResolveRootRef::resolve 0x284eb00 (3)
+<-- TaskResolveRef::visitExprId i (0x284eb00)
+<-- TaskResolveRef::resolve (RefPath) 0x284eb00 (3)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 6
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29813a0
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
+TaskResolveSymbolPathRef:   scope 0x29813a0 => 0x298fb20
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x781eb40
+TaskResolveSymbolPathRef:   scope 0x298fb20 => 0x27cbd00
 <-- TaskResolveSymbolPathRef::resolve
 --> zsp::parser::TaskGetElemSymbolScope::visitField i
 <-- zsp::parser::TaskGetElemSymbolScope::visitField i
@@ -4099,66 +4109,75 @@ TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x781eb40
 --> TaskResolveRootRef::visitSymbolTypeScope id=j (Entry)
 --> TaskResolveRootRef::visitSymbolScope id=j (Entry)
 TaskResolveRootRef: imports: (nil)
+TaskResolveRootRef: Found symbol @ index 2
 <-- TaskResolveRootRef::visitSymbolScope
-TaskResolveRootRef: TypeScope: m_ref=0x71c88a0 plist=(nil)
-<-- TaskResolveRootRef::visitSymbolTypeScope 0x71c88a0
-<-- TaskResolveRootRef::resolve 0x71c88a0 (3)
-<-- TaskResolveRef::visitExprId j (0x71c88a0)
-<-- TaskResolveRef::resolve (RefPath) 0x71c88a0 (3)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+TaskResolveRootRef: TypeScope: m_ref=0x2728ca0 plist=(nil)
+<-- TaskResolveRootRef::visitSymbolTypeScope 0x2728ca0
+<-- TaskResolveRootRef::resolve 0x2728ca0 (3)
+<-- TaskResolveRef::visitExprId j (0x2728ca0)
+<-- TaskResolveRef::resolve (RefPath) 0x2728ca0 (3)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 6
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29813a0
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
+TaskResolveSymbolPathRef:   scope 0x29813a0 => 0x298fb20
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x7821990
+TaskResolveSymbolPathRef:   scope 0x298fb20 => 0x279b130
 <-- TaskResolveSymbolPathRef::resolve
 --> zsp::parser::TaskGetElemSymbolScope::visitField j
 <-- zsp::parser::TaskGetElemSymbolScope::visitField j
 <-- TaskResolveRefs::visitExprRefPathContext
---> TaskResolveRefs::visitExprRefPathContext doit
+--> TaskResolveRefs::visitExprRefPathStaticRooted
+--> TaskResolveRefs::visitExprRefPathStatic size=1
 --> TaskResolveRef::resolve (RefPath)
---> TaskResolveRef::visitExprId doit
---> TaskResolveRootRef::resolve doit
+--> TaskResolveRef::visitExprId local
+--> TaskResolveRootRef::resolve local
 --> TaskResolveRootRef::visitSymbolExecScope
 <-- TaskResolveRootRef::visitSymbolExecScope
 --> AstSymbolTableIterator::popScope 4
 <-- AstSymbolTableIterator::popScope - sz=3
---> TaskResolveRootRef::visitSymbolTypeScope id=doit (Entry)
---> TaskResolveRootRef::visitSymbolScope id=doit (Entry)
+--> TaskResolveRootRef::visitSymbolTypeScope id=local (Entry)
+--> TaskResolveRootRef::visitSymbolScope id=local (Entry)
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 3
 <-- AstSymbolTableIterator::popScope - sz=2
---> TaskResolveRootRef::visitSymbolTypeScope id=doit (pss_top)
---> TaskResolveRootRef::visitSymbolScope id=doit (pss_top)
+--> TaskResolveRootRef::visitSymbolTypeScope id=local (pss_top)
+--> TaskResolveRootRef::visitSymbolScope id=local (pss_top)
 TaskResolveRootRef: imports: (nil)
 --> zsp::parser::TaskResolveEnumRef::resolve
 <-- zsp::parser::TaskResolveEnumRef::resolve
+TaskResolveRootRef: Failed to find symbol
 <-- TaskResolveRootRef::visitSymbolScope
 TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
 <-- TaskResolveRootRef::visitSymbolTypeScope (nil)
 --> AstSymbolTableIterator::popScope 2
 <-- AstSymbolTableIterator::popScope - sz=1
---> TaskResolveRootRef::visitSymbolScope id=doit ()
+--> TaskResolveRootRef::visitSymbolScope id=local ()
 TaskResolveRootRef: imports: (nil)
+TaskResolveRootRef: Found symbol @ index 5
 <-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x752ebf0 (1)
-<-- TaskResolveRef::visitExprId doit (0x752ebf0)
-<-- TaskResolveRef::resolve (RefPath) 0x752ebf0 (1)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+<-- TaskResolveRootRef::resolve 0x27c94d0 (1)
+<-- TaskResolveRef::visitExprId local (0x27c94d0)
+<-- TaskResolveRef::resolve (RefPath) 0x27c94d0 (1)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 5
 TaskResolveSymbolPathRef: Elem: ChildIdx 5
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b6e0
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x299afc0
 <-- TaskResolveSymbolPathRef::resolve
---> TaskResolveRefs::Resolve parameter references
+--> zsp::parser::TaskIsPyRef::check
+--> zsp::parser::TaskIsPyRef::visitPyImportStmt
+<-- zsp::parser::TaskIsPyRef::visitPyImportStmt
+<-- zsp::parser::TaskIsPyRef::check 1
+<-- TaskResolveRefs::visitExprRefPathStatic
 --> TaskResolveRefs::visitExprRefPathContext i
 --> TaskResolveRef::resolve (RefPath)
 --> TaskResolveRef::visitExprId i
@@ -4170,101 +4189,29 @@ TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b6e0
 --> TaskResolveRootRef::visitSymbolTypeScope id=i (Entry)
 --> TaskResolveRootRef::visitSymbolScope id=i (Entry)
 TaskResolveRootRef: imports: (nil)
+TaskResolveRootRef: Found symbol @ index 1
 <-- TaskResolveRootRef::visitSymbolScope
-TaskResolveRootRef: TypeScope: m_ref=0x1086d300 plist=(nil)
-<-- TaskResolveRootRef::visitSymbolTypeScope 0x1086d300
-<-- TaskResolveRootRef::resolve 0x1086d300 (3)
-<-- TaskResolveRef::visitExprId i (0x1086d300)
-<-- TaskResolveRef::resolve (RefPath) 0x1086d300 (3)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+TaskResolveRootRef: TypeScope: m_ref=0x28d6020 plist=(nil)
+<-- TaskResolveRootRef::visitSymbolTypeScope 0x28d6020
+<-- TaskResolveRootRef::resolve 0x28d6020 (3)
+<-- TaskResolveRef::visitExprId i (0x28d6020)
+<-- TaskResolveRef::resolve (RefPath) 0x28d6020 (3)
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 6
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29813a0
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
+TaskResolveSymbolPathRef:   scope 0x29813a0 => 0x298fb20
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x781eb40
+TaskResolveSymbolPathRef:   scope 0x298fb20 => 0x27cbd00
 <-- TaskResolveSymbolPathRef::resolve
 --> zsp::parser::TaskGetElemSymbolScope::visitField i
 <-- zsp::parser::TaskGetElemSymbolScope::visitField i
 <-- TaskResolveRefs::visitExprRefPathContext
-<-- TaskResolveRefs::Resolve parameter references
-<-- TaskResolveRefs::visitExprRefPathContext
---> TaskResolveRefs::visitExprRefPathContext doit
---> TaskResolveRef::resolve (RefPath)
---> TaskResolveRef::visitExprId doit
---> TaskResolveRootRef::resolve doit
---> TaskResolveRootRef::visitSymbolExecScope
-<-- TaskResolveRootRef::visitSymbolExecScope
---> AstSymbolTableIterator::popScope 4
-<-- AstSymbolTableIterator::popScope - sz=3
---> TaskResolveRootRef::visitSymbolTypeScope id=doit (Entry)
---> TaskResolveRootRef::visitSymbolScope id=doit (Entry)
-TaskResolveRootRef: imports: (nil)
---> zsp::parser::TaskResolveEnumRef::resolve
-<-- zsp::parser::TaskResolveEnumRef::resolve
-<-- TaskResolveRootRef::visitSymbolScope
-TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
-<-- TaskResolveRootRef::visitSymbolTypeScope (nil)
---> AstSymbolTableIterator::popScope 3
-<-- AstSymbolTableIterator::popScope - sz=2
---> TaskResolveRootRef::visitSymbolTypeScope id=doit (pss_top)
---> TaskResolveRootRef::visitSymbolScope id=doit (pss_top)
-TaskResolveRootRef: imports: (nil)
---> zsp::parser::TaskResolveEnumRef::resolve
-<-- zsp::parser::TaskResolveEnumRef::resolve
-<-- TaskResolveRootRef::visitSymbolScope
-TaskResolveRootRef: TypeScope: m_ref=(nil) plist=(nil)
-<-- TaskResolveRootRef::visitSymbolTypeScope (nil)
---> AstSymbolTableIterator::popScope 2
-<-- AstSymbolTableIterator::popScope - sz=1
---> TaskResolveRootRef::visitSymbolScope id=doit ()
-TaskResolveRootRef: imports: (nil)
-<-- TaskResolveRootRef::visitSymbolScope
-<-- TaskResolveRootRef::resolve 0x1086d5a0 (1)
-<-- TaskResolveRef::visitExprId doit (0x1086d5a0)
-<-- TaskResolveRef::resolve (RefPath) 0x1086d5a0 (1)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
-TaskResolveSymbolPathRef: Path: 0 5
-TaskResolveSymbolPathRef: Elem: ChildIdx 5
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b6e0
-<-- TaskResolveSymbolPathRef::resolve
---> TaskResolveRefs::Resolve parameter references
---> TaskResolveRefs::visitExprRefPathContext j
---> TaskResolveRef::resolve (RefPath)
---> TaskResolveRef::visitExprId j
---> TaskResolveRootRef::resolve j
---> TaskResolveRootRef::visitSymbolExecScope
-<-- TaskResolveRootRef::visitSymbolExecScope
---> AstSymbolTableIterator::popScope 4
-<-- AstSymbolTableIterator::popScope - sz=3
---> TaskResolveRootRef::visitSymbolTypeScope id=j (Entry)
---> TaskResolveRootRef::visitSymbolScope id=j (Entry)
-TaskResolveRootRef: imports: (nil)
-<-- TaskResolveRootRef::visitSymbolScope
-TaskResolveRootRef: TypeScope: m_ref=0x1086d840 plist=(nil)
-<-- TaskResolveRootRef::visitSymbolTypeScope 0x1086d840
-<-- TaskResolveRootRef::resolve 0x1086d840 (3)
-<-- TaskResolveRef::visitExprId j (0x1086d840)
-<-- TaskResolveRef::resolve (RefPath) 0x1086d840 (3)
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
-TaskResolveSymbolPathRef: Path: 0 6
-TaskResolveSymbolPathRef: Path: 0 0
-TaskResolveSymbolPathRef: Path: 0 2
-TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
-TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
-TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x7821990
-<-- TaskResolveSymbolPathRef::resolve
---> zsp::parser::TaskGetElemSymbolScope::visitField j
-<-- zsp::parser::TaskGetElemSymbolScope::visitField j
-<-- TaskResolveRefs::visitExprRefPathContext
-<-- TaskResolveRefs::Resolve parameter references
-<-- TaskResolveRefs::visitExprRefPathContext
+TaskResolveRefs: Root (static) reference has a Python component
+<-- TaskResolveRefs::visitExprRefPathStaticRooted
 --> AstSymbolTableIterator::popScope 4
 <-- AstSymbolTableIterator::popScope - sz=3
 <-- TaskResolveRefs::visitSymbolExecScope ""
@@ -4280,24 +4227,24 @@ TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x7821990
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Found
 --> zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_claim_s
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Found
-<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_claim_s 0x10d87e60
-<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg 0x10d87e60
+<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_claim_s 0x29caf90
+<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg 0x29caf90
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Is a Symbol TypeScope
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Set associated data for type addr_claim_s
 --> zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Found
 --> zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: reg_c
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Found
-<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: reg_c 0x10d74520
-<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg 0x10d74520
+<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: reg_c 0x298fd40
+<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg 0x298fd40
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Is a Symbol TypeScope
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Set associated data for type reg_c
 --> zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Found
 --> zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: reg_group_c
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Found
-<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: reg_group_c 0x10d84b80
-<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg 0x10d84b80
+<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: reg_group_c 0x2909340
+<-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::findElem: addr_reg_pkg 0x2909340
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Is a Symbol TypeScope
 zsp::fe::parser::TaskLinkBuiltinTypeElemFactories: Set associated data for type reg_group_c
 <-- zsp::fe::parser::TaskLinkBuiltinTypeElemFactories::link
@@ -4384,13 +4331,13 @@ Ast2ArlContext: PUSH: m_type_s_idx=3
 TaskBuildDataType: Fullname: addr_reg_pkg::empty_addr_trait_s
 --> TaskBuildDataType::buildType addr_reg_pkg::empty_addr_trait_s (0)
 --> TaskBuildDataType::buildTypeFields 1
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d7df20
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x278a050
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskBuildDataType::buildTypeFields 1
 <-- TaskBuildDataType::buildTypeFields 1
@@ -4642,13 +4589,13 @@ TaskBuildDataType: Type is unspecialized (0 specializations)
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -4674,20 +4621,20 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x71613b0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29909c0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeUserDefined
 TaskBuildDataType:   TypeId Elem: addr_claim_base_s
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=9
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 9
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 9
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d2f8e0
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x29c4be0
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -4753,7 +4700,7 @@ Ast2ArlContext: s=
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7161840)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29c82d0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -4766,7 +4713,7 @@ Ast2ArlContext: POP: m_type_s_idx=-1
 --> TaskBuildExpr::visitExprUnsignedNumber
 <-- TaskBuildExpr::visitExprUnsignedNumber
 <-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x71fc830
+<-- TaskBuildExpr::build 0x28dbd70
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::make_handle_from_claim
 <-- Ast2ArlBuilder::visitSymbolFunctionScope make_handle_from_claim
@@ -4777,13 +4724,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -4809,20 +4756,20 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x71fceb0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29caa10)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeUserDefined
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -4848,7 +4795,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x71fd340)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29bb040)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -4872,13 +4819,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -4904,7 +4851,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x71f6b90)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28317e0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::addr_value
@@ -4922,13 +4869,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -4954,7 +4901,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x71f7780)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x299b620)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read8
@@ -4972,13 +4919,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5004,7 +4951,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x78614e0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2892800)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read16
@@ -5022,13 +4969,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5054,7 +5001,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7861ea0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2999cd0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read32
@@ -5072,13 +5019,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5104,7 +5051,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x105951c0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2729960)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read64
@@ -5116,13 +5063,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5148,7 +5095,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x10595ad0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x299ac00)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5166,13 +5113,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5198,7 +5145,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x105965e0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29c9e80)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5216,13 +5163,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5248,7 +5195,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x107db5a0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2720f50)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5266,13 +5213,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5298,7 +5245,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x107dc120)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x26d37b0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5380,13 +5327,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5412,7 +5359,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::reg_group_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x1086c1c0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28e1610)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::reg_group_c::set_handle
@@ -5466,13 +5413,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5498,7 +5445,7 @@ TaskBuildDataType: Fullname: addr_reg_pkg::reg_group_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6d1cc20)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x282e660)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::reg_group_c::set_handle
@@ -5552,13 +5499,13 @@ Ast2ArlContext: PUSH: m_type_s_idx=3
 TaskBuildDataType: Fullname: executor_pkg::empty_executor_trait_s
 --> TaskBuildDataType::buildType executor_pkg::empty_executor_trait_s (0)
 --> TaskBuildDataType::buildTypeFields 1
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x6dc2468
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x28a8558
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x6dc2468 => 0x7463090
+TaskResolveSymbolPathRef:   scope 0x28a8558 => 0x29a4150
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskBuildDataType::buildTypeFields 1
 <-- TaskBuildDataType::buildTypeFields 1
@@ -5601,13 +5548,13 @@ TaskBuildDataType: Building Component Type: executor_pkg::executor_base_c
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5633,7 +5580,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6e263a0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x298f770)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read8
@@ -5651,13 +5598,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5683,7 +5630,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6e26de0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2829ef0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read16
@@ -5701,13 +5648,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5733,7 +5680,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6e7d910)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2729e00)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read32
@@ -5751,13 +5698,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5783,7 +5730,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6e7e0e0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29ae380)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read64
@@ -5795,13 +5742,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5827,7 +5774,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6e7e900)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x27fef60)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5845,13 +5792,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5877,7 +5824,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6ec4c70)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28e24d0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5895,13 +5842,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5927,7 +5874,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6ec5670)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2895660)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -5945,13 +5892,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -5977,7 +5924,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x6ec6060)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x271f420)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6009,13 +5956,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6041,7 +5988,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7164ff0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28dd500)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read8
@@ -6059,13 +6006,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6091,7 +6038,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7165800)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28c79a0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read16
@@ -6109,13 +6056,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6141,7 +6088,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7166100)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28612c0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read32
@@ -6159,13 +6106,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6191,7 +6138,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x71693a0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29a0190)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read64
@@ -6203,13 +6150,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6235,7 +6182,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7169b80)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29a1ac0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6253,13 +6200,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6285,7 +6232,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x716d0d0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2990f30)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6303,13 +6250,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6335,7 +6282,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x716da70)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28b5be0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6353,13 +6300,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6385,7 +6332,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x716e410)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x294fbf0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6437,13 +6384,13 @@ TaskBuildDataType: Type is unspecialized (0 specializations)
 TaskBuildDataType:   TypeId Elem: executor_base_c
 TaskBuildDataType:   Elem: kind=0 idx=2
 TaskBuildDataType:   Elem: kind=0 idx=2
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x6dc2468
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x28a8558
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x6dc2468 => 0x6e34a40
+TaskResolveSymbolPathRef:   scope 0x28a8558 => 0x2830b90
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6469,13 +6416,13 @@ TaskBuildDataType: Building Component Type: executor_pkg::executor_base_c
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6501,7 +6448,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x73706f0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28a7ab0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read8
@@ -6519,13 +6466,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6551,7 +6498,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7370f70)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29c4910)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read16
@@ -6569,13 +6516,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6601,7 +6548,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7371870)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2715660)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read32
@@ -6619,13 +6566,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6651,7 +6598,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7230450)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x283beb0)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read64
@@ -6663,13 +6610,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6695,7 +6642,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7230c20)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2826900)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6713,13 +6660,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6745,7 +6692,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x737ff70)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29c1960)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6763,13 +6710,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6795,7 +6742,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x7380920)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x282e520)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6813,13 +6760,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6845,7 +6792,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x73812c0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2729110)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -6877,13 +6824,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6909,7 +6856,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0xcea1930)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2877c00)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read8
@@ -6927,13 +6874,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -6959,7 +6906,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0xcea2160)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2816180)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read16
@@ -6977,13 +6924,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -7009,7 +6956,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0xcea2a00)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x281a860)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read32
@@ -7027,13 +6974,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -7059,7 +7006,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x10d90a00)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29a6270)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build addr_reg_pkg::read64
@@ -7071,13 +7018,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -7103,7 +7050,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x10d911c0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2727cb0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -7121,13 +7068,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -7153,7 +7100,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x10d91c30)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x28c7ab0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -7171,13 +7118,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -7203,7 +7150,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x10d952c0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2822e90)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -7221,13 +7168,13 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 TaskBuildDataType:   TypeId Elem: addr_handle_t
 TaskBuildDataType:   Elem: kind=0 idx=1
 TaskBuildDataType:   Elem: kind=0 idx=3
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Path: 0 3
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x10d7a5f8
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29cc668
 TaskResolveSymbolPathRef: Elem: ChildIdx 3
-TaskResolveSymbolPathRef:   scope 0x10d7a5f8 => 0x10d84340
+TaskResolveSymbolPathRef:   scope 0x29cc668 => 0x2783a30
 <-- TaskResolveSymbolPathRef::resolve
 --> TaskResolveSymbolPathRef::visitSymbolTypeScope
 <-- TaskResolveSymbolPathRef::visitSymbolTypeScope
@@ -7253,7 +7200,7 @@ TaskBuildDataType: Fullname: executor_pkg::executor_base_c::addr_handle_t
 Ast2ArlContext: POP: m_type_s_idx=3
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x10d95d10)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x29bedb0)
 <-- TaskBuildDataType::build
 --> TaskBuildDataType::build
 --> TaskBuildDataType::visitDataTypeInt
@@ -7269,7 +7216,7 @@ zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
 <-- TaskBuildDataType::visitSymbolTypeScope
-<-- TaskBuildDataType::visitDataTypeUserDefined (0x736ffd0)
+<-- TaskBuildDataType::visitDataTypeUserDefined (0x2993f30)
 <-- TaskBuildDataType::build
 zsp::fe::parser::TaskBuildDataTypeFunction: Import function
 <-- zsp::fe::parser::TaskBuildDataTypeFunction::build executor_pkg::executor
@@ -7291,15 +7238,6 @@ TaskBuildDataType: Type is unspecialized (0 specializations)
 --> Ast2ArlContext::popSymScope std_pkg -> 2
 Ast2ArlContext: POP: m_type_s_idx=-1
 <-- Ast2ArlContext::popSymScope
---> Ast2ArlBuilder::visitSymbolFunctionScope "doit"
---> zsp::fe::parser::TaskBuildDataTypeFunction::build doit
---> TaskBuildDataType::build
---> TaskBuildDataType::visitDataTypeInt
-<-- TaskBuildDataType::visitDataTypeInt
-<-- TaskBuildDataType::build
-zsp::fe::parser::TaskBuildDataTypeFunction: Import function
-<-- zsp::fe::parser::TaskBuildDataTypeFunction::build doit
-<-- Ast2ArlBuilder::visitSymbolFunctionScope doit
 --> Ast2ArlBuilder::visitSymbolTypeScope pss_top
 Ast2ArlBuilder: Need to build type
 --> TaskBuildDataType::build
@@ -7394,16 +7332,20 @@ TaskBuildDataType: TODO: visitSymbolExecScope
 <-- TaskBuildDataType::buildTypeConstraints
 --> TaskBuildTypeExecs::build
 --> TaskBuildTypeExecs::visitSymbolTypeScope
---> TaskBuildTypeExecs::visitSymbolExecScope kind=0 target_kind=0 size=3
+--> TaskBuildTypeExecs::visitSymbolExecScope kind=8 target_kind=0 size=2
+<-- TaskBuildTypeExecs::visitSymbolExecScope -- not target kind
+--> TaskBuildTypeExecs::visitSymbolExecScope kind=8 target_kind=7 size=2
+<-- TaskBuildTypeExecs::visitSymbolExecScope -- not target kind
+--> TaskBuildTypeExecs::visitSymbolExecScope kind=8 target_kind=8 size=2
 --> TaskBuildTypeExecStmt::build
 --> TaskBuildTypeExecStmt::visitProceduralStmtAssignment
 --> TaskBuildExpr::build
 --> TaskBuildExpr::expr
---> TaskBuildExpr::visitExprRefPathContext
+--> TaskBuildExpr::visitExprRefPathContext baseExpr=(nil)
 TaskBuildExpr: it: kind=0 idx=6
 TaskBuildExpr: it: kind=0 idx=0
 TaskBuildExpr: it: kind=0 idx=1
-TaskBuildExpr: HierId (0x10d2f3a0) .size=1
+TaskBuildExpr: HierId (0x283c700) .size=1
 TaskBuildExpr: TypeScope: Entry
 TaskBuildExpr: Path size=3 ; scope depth=4
 TaskBuildExpr: Scope:  ; ii=0 idx=6
@@ -7414,38 +7356,38 @@ TaskBuildExpr: type_scope_idx=2
 TaskBuildExpr: type_scope_idx=2 (PathSize-1)=2
 TaskBuildExpr: Type-context reference
 TaskBuildExpr: Add path elem 1
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 6
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29813a0
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
+TaskResolveSymbolPathRef:   scope 0x29813a0 => 0x298fb20
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x781eb40
+TaskResolveSymbolPathRef:   scope 0x298fb20 => 0x27cbd00
 <-- TaskResolveSymbolPathRef::resolve
 TaskBuildExpr: Path[0]: -1
-<-- TaskBuildExpr::visitExprRefPathContext 0x6e76320
+<-- TaskBuildExpr::visitExprRefPathContext 0x288ea00
 <-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x6e76320
+<-- TaskBuildExpr::build 0x288ea00
 --> TaskBuildExpr::build
 --> TaskBuildExpr::expr
 --> TaskBuildExpr::visitExprUnsignedNumber
 <-- TaskBuildExpr::visitExprUnsignedNumber
 <-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x7895ae0
+<-- TaskBuildExpr::build 0x2840540
 <-- TaskBuildTypeExecStmt::visitProceduralStmtAssignment
 <-- TaskBuildTypeExecStmt::build
 --> TaskBuildTypeExecStmt::build
 --> TaskBuildTypeExecStmt::visitProceduralStmtAssignment
 --> TaskBuildExpr::build
 --> TaskBuildExpr::expr
---> TaskBuildExpr::visitExprRefPathContext
+--> TaskBuildExpr::visitExprRefPathContext baseExpr=(nil)
 TaskBuildExpr: it: kind=0 idx=6
 TaskBuildExpr: it: kind=0 idx=0
 TaskBuildExpr: it: kind=0 idx=2
-TaskBuildExpr: HierId (0x10d8ff20) .size=1
+TaskBuildExpr: HierId (0x2878ad0) .size=1
 TaskBuildExpr: TypeScope: Entry
 TaskBuildExpr: Path size=3 ; scope depth=4
 TaskBuildExpr: Scope:  ; ii=0 idx=6
@@ -7456,45 +7398,45 @@ TaskBuildExpr: type_scope_idx=2
 TaskBuildExpr: type_scope_idx=2 (PathSize-1)=2
 TaskBuildExpr: Type-context reference
 TaskBuildExpr: Add path elem 2
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 6
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Path: 0 2
 TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29813a0
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
+TaskResolveSymbolPathRef:   scope 0x29813a0 => 0x298fb20
 TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x7821990
+TaskResolveSymbolPathRef:   scope 0x298fb20 => 0x279b130
 <-- TaskResolveSymbolPathRef::resolve
 TaskBuildExpr: Path[0]: -1
-<-- TaskBuildExpr::visitExprRefPathContext 0x6e76620
+<-- TaskBuildExpr::visitExprRefPathContext 0x274e520
 <-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x6e76620
+<-- TaskBuildExpr::build 0x274e520
 --> TaskBuildExpr::build
 --> TaskBuildExpr::expr
---> TaskBuildExpr::visitExprRefPathContext
-TaskBuildExpr: it: kind=0 idx=5
-TaskBuildExpr: HierId (0x10d6a790) .size=1
-TaskBuildExpr: TypeScope: Entry
-TaskBuildExpr: Path size=1 ; scope depth=4
-TaskBuildExpr: Scope:  ; ii=0 idx=5
-TaskBuildExpr: type_scope_idx=-1
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskBuildExpr::visitExprRefPathStaticRooted
+--> TaskBuildExpr::visitExprRefPathStatic
+TaskBuildExpr: Path involves a Python-type reference
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 5
 TaskResolveSymbolPathRef: Elem: ChildIdx 5
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b6e0
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x299afc0
 <-- TaskResolveSymbolPathRef::resolve
-TaskBuildExpr: Path[0]: -1
-TaskBuildExpr: Elem[0] has parameters (doit)
-TaskBuildExpr: FunctionCallStatic: name=doit
---> TaskBuildExpr::build
---> TaskBuildExpr::expr
---> TaskBuildExpr::visitExprRefPathContext
+--> TaskBuildExpr::visitPyImportStmt
+TaskBuildExpr: Searching for python import "local"
+<-- TaskBuildExpr::visitPyImportStmt
+<-- TaskBuildExpr::visitExprRefPathStatic
+TaskBuildExpr: Push BaseExpr 0x27a4280
+TaskBuildExpr: BaseExpr 0x27a4280
+--> TaskBuildExpr::visitExprMemberPathElem
+TaskBuildExpr: Method call
+TaskBuildExpr: Create Python method call
+--> TaskBuildExpr::visitExprRefPathContext baseExpr=(nil)
 TaskBuildExpr: it: kind=0 idx=6
 TaskBuildExpr: it: kind=0 idx=0
 TaskBuildExpr: it: kind=0 idx=1
-TaskBuildExpr: HierId (0x10d6b710) .size=1
+TaskBuildExpr: HierId (0x28219a0) .size=1
 TaskBuildExpr: TypeScope: Entry
 TaskBuildExpr: Path size=3 ; scope depth=4
 TaskBuildExpr: Scope:  ; ii=0 idx=6
@@ -7505,91 +7447,28 @@ TaskBuildExpr: type_scope_idx=2
 TaskBuildExpr: type_scope_idx=2 (PathSize-1)=2
 TaskBuildExpr: Type-context reference
 TaskBuildExpr: Add path elem 1
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
+--> TaskResolveSymbolPathRef::resolve root=0x29dcf18
 TaskResolveSymbolPathRef: Path: 0 6
 TaskResolveSymbolPathRef: Path: 0 0
 TaskResolveSymbolPathRef: Path: 0 1
 TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
+TaskResolveSymbolPathRef:   scope 0x29dcf18 => 0x29813a0
 TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
+TaskResolveSymbolPathRef:   scope 0x29813a0 => 0x298fb20
 TaskResolveSymbolPathRef: Elem: ChildIdx 1
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x781eb40
+TaskResolveSymbolPathRef:   scope 0x298fb20 => 0x27cbd00
 <-- TaskResolveSymbolPathRef::resolve
 TaskBuildExpr: Path[0]: -1
-<-- TaskBuildExpr::visitExprRefPathContext 0x6e76810
+<-- TaskBuildExpr::visitExprRefPathContext 0x29ca830
+<-- TaskBuildExpr::visitExprMemberPathElem
+TaskBuildExpr: Post Pop BaseExpr expr=0x29b2ec0
+TaskBuildExpr: root=0x2875598 leaf=0x271ac50
+<-- TaskBuildExpr::visitExprRefPathStaticRooted
 <-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x6e76810
-TaskBuildExpr: Elem 0: Static function call
-TaskBuildExpr: Function Name: doit
-<-- TaskBuildExpr::visitExprRefPathContext 0x7895a50
-<-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x7895a50
+<-- TaskBuildExpr::build 0x29b2ec0
 <-- TaskBuildTypeExecStmt::visitProceduralStmtAssignment
 <-- TaskBuildTypeExecStmt::build
---> TaskBuildTypeExecStmt::build
---> TaskBuildTypeExecStmt::visitProceduralStmtExpr
---> TaskBuildExpr::build
---> TaskBuildExpr::expr
---> TaskBuildExpr::visitExprRefPathContext
-TaskBuildExpr: it: kind=0 idx=5
-TaskBuildExpr: HierId (0x10d6e010) .size=1
-TaskBuildExpr: TypeScope: Entry
-TaskBuildExpr: Path size=1 ; scope depth=4
-TaskBuildExpr: Scope:  ; ii=0 idx=5
-TaskBuildExpr: type_scope_idx=-1
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
-TaskResolveSymbolPathRef: Path: 0 5
-TaskResolveSymbolPathRef: Elem: ChildIdx 5
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b6e0
-<-- TaskResolveSymbolPathRef::resolve
-TaskBuildExpr: Path[0]: -1
-TaskBuildExpr: Elem[0] has parameters (doit)
-TaskBuildExpr: FunctionCallStatic: name=doit
---> TaskBuildExpr::build
---> TaskBuildExpr::expr
---> TaskBuildExpr::visitExprRefPathContext
-TaskBuildExpr: it: kind=0 idx=6
-TaskBuildExpr: it: kind=0 idx=0
-TaskBuildExpr: it: kind=0 idx=2
-TaskBuildExpr: HierId (0x10d6edf0) .size=1
-TaskBuildExpr: TypeScope: Entry
-TaskBuildExpr: Path size=3 ; scope depth=4
-TaskBuildExpr: Scope:  ; ii=0 idx=6
-TaskBuildExpr: Scope: pss_top ; ii=1 idx=0
-TaskBuildExpr: Found type scope @ 1 (Entry)
-TaskBuildExpr: Scope: Entry ; ii=2 idx=2
-TaskBuildExpr: type_scope_idx=2
-TaskBuildExpr: type_scope_idx=2 (PathSize-1)=2
-TaskBuildExpr: Type-context reference
-TaskBuildExpr: Add path elem 2
---> TaskResolveSymbolPathRef::resolve root=0x10d76f68
-TaskResolveSymbolPathRef: Path: 0 6
-TaskResolveSymbolPathRef: Path: 0 0
-TaskResolveSymbolPathRef: Path: 0 2
-TaskResolveSymbolPathRef: Elem: ChildIdx 6
-TaskResolveSymbolPathRef:   scope 0x10d76f68 => 0x716b860
-TaskResolveSymbolPathRef: Elem: ChildIdx 0
-TaskResolveSymbolPathRef:   scope 0x716b860 => 0x716b9e0
-TaskResolveSymbolPathRef: Elem: ChildIdx 2
-TaskResolveSymbolPathRef:   scope 0x716b9e0 => 0x7821990
-<-- TaskResolveSymbolPathRef::resolve
-TaskBuildExpr: Path[0]: -1
-<-- TaskBuildExpr::visitExprRefPathContext 0x6e76bc0
-<-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x6e76bc0
-TaskBuildExpr: Elem 0: Static function call
-TaskBuildExpr: Function Name: doit
-<-- TaskBuildExpr::visitExprRefPathContext 0x6e76d40
-<-- TaskBuildExpr::expr
-<-- TaskBuildExpr::build 0x6e76d40
-<-- TaskBuildTypeExecStmt::visitProceduralStmtExpr
-<-- TaskBuildTypeExecStmt::build
 <-- TaskBuildTypeExecs::visitSymbolExecScope
---> TaskBuildTypeExecs::visitSymbolExecScope kind=0 target_kind=7 size=3
-<-- TaskBuildTypeExecs::visitSymbolExecScope -- not target kind
---> TaskBuildTypeExecs::visitSymbolExecScope kind=0 target_kind=8 size=3
-<-- TaskBuildTypeExecs::visitSymbolExecScope -- not target kind
 <-- TaskBuildTypeExecs::visitSymbolTypeScope
 <-- TaskBuildTypeExecs::build
 <-- TaskBuildDataType::buildType pss_top::Entry (0)
@@ -7626,23 +7505,26 @@ zsp::arl::eval::EvalContextIncrElab: Process Function addr_reg_pkg::reg_group_c:
 zsp::arl::eval::EvalContextIncrElab: Process Function addr_reg_pkg::reg_group_c::get_offset_of_instance_array
 zsp::arl::eval::EvalContextIncrElab: Process Function addr_reg_pkg::reg_group_c::set_handle
 zsp::arl::eval::EvalContextIncrElab: Process Function executor_pkg::executor
-zsp::arl::eval::EvalContextIncrElab: Process Function doit
-<-- zsp::arl::eval::EvalContextIncrElab::buildCompTree 0 16
+<-- zsp::arl::eval::EvalContextIncrElab::buildCompTree 0 15
 --> zsp::arl::eval::EvalContextIncrElab::[0] eval
 --> zsp::arl::eval::EvalContextIncrElab::initPython
+zsp::arl::eval::EvalContextIncrElab: Module local has already been loaded
 <-- zsp::arl::eval::EvalContextIncrElab::initPython
+--> zsp::arl::eval::EvalContextIncrElab::haveError
+zsp::arl::eval::EvalContextIncrElab: Get top-level
+<-- zsp::arl::eval::EvalContextIncrElab::haveError 0
 --> ModelFieldComponentRoot::enterComponentScope level=0 (0) pss_top
 <-- ModelFieldComponentRoot::enterComponentScope pss_top
 --> ModelFieldComponentRoot::leaveComponentScope 0 (-1)
 <-- ModelFieldComponentRoot::leaveComponentScope
 --> zsp::arl::eval::TaskEvalComponentExecInit::eval
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbe70
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbe70
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9b70
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9b70
 --> zsp::arl::eval::TaskEvalComponentExecInit::visitDataTypeComponent
 zsp::arl::eval::TaskEvalComponentExecInit: No init-down execs to evaluate
 zsp::arl::eval::TaskEvalComponentExecInit: No init-up execs to evaluate
 <-- zsp::arl::eval::TaskEvalComponentExecInit::visitDataTypeComponent
---> zsp::arl::eval::EvalContextIncrElab::popEval 0x1ffeffbe70 sz=1
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9b70 sz=1
 zsp::arl::eval::EvalContextIncrElab: NOT hasResult
 <-- zsp::arl::eval::EvalContextIncrElab::popEval
 <-- zsp::arl::eval::TaskEvalComponentExecInit::eval
@@ -7651,162 +7533,10 @@ zsp::arl::eval::EvalContextIncrElab: NOT hasResult
 <-- zsp::arl::eval::TaskElaborateRegGroupTypes::visitModelFieldComponent
 <-- zsp::arl::eval::TaskElaborateRegGroupTypes::elaborate
 --> zsp::arl::eval::EvalTypeActionIncrElab::eval
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbff0
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbff0
-zsp::arl::eval::EvalTypeActionIncrElab:   0x717dd68
-zsp::arl::eval::EvalTypeActionIncrElab: FieldVal: 0x789c908
-==960358== Conditional jump or move depends on uninitialised value(s)
-==960358==    at 0x61324F5: vfprintf (in /usr/lib64/libc-2.28.so)
-==960358==    by 0xE930F19: dmgr::DebugOutFile::debug(dmgr::IDebug*, char const*, __va_list_tag*) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0xE92FAFE: dmgr::Debug::debug(char const*, ...) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0x1213F032: zsp::arl::eval::EvalTypeProcStmt::visitTypeProcStmtAssign(zsp::arl::dm::ITypeProcStmtAssign*) (EvalTypeProcStmt.cpp:124)
-==960358==    by 0xEED53A6: zsp::arl::dm::TypeProcStmtAssign::accept(vsc::dm::IVisitor*) (TypeProcStmtAssign.cpp:44)
-==960358==    by 0x1213E6C2: zsp::arl::eval::EvalTypeProcStmt::eval() (EvalTypeProcStmt.cpp:65)
-==960358==    by 0x1214130B: zsp::arl::eval::EvalTypeProcStmtScope::eval() (EvalTypeProcStmtScope.cpp:69)
-==960358==    by 0x12131097: zsp::arl::eval::EvalTypeExecList::visitTypeExecProc(zsp::arl::dm::ITypeExecProc*) (EvalTypeExecList.cpp:100)
-==960358==    by 0xEEA1A68: zsp::arl::dm::TypeExecProc::accept(vsc::dm::IVisitor*) (TypeExecProc.cpp:42)
-==960358==    by 0x12130C58: zsp::arl::eval::EvalTypeExecList::eval() (EvalTypeExecList.cpp:64)
-==960358==    by 0x1212F5EE: zsp::arl::eval::EvalTypeActionIncrElab::eval() (EvalTypeActionIncrElab.cpp:96)
-==960358==    by 0x121299E2: zsp::arl::eval::EvalContextIncrElab::eval() (EvalContextIncrElab.cpp:169)
-==960358== 
-==960358== Use of uninitialised value of size 8
-==960358==    at 0x612E11E: _itoa_word (in /usr/lib64/libc-2.28.so)
-==960358==    by 0x6131BBB: vfprintf (in /usr/lib64/libc-2.28.so)
-==960358==    by 0xE930F19: dmgr::DebugOutFile::debug(dmgr::IDebug*, char const*, __va_list_tag*) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0xE92FAFE: dmgr::Debug::debug(char const*, ...) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0x1213F032: zsp::arl::eval::EvalTypeProcStmt::visitTypeProcStmtAssign(zsp::arl::dm::ITypeProcStmtAssign*) (EvalTypeProcStmt.cpp:124)
-==960358==    by 0xEED53A6: zsp::arl::dm::TypeProcStmtAssign::accept(vsc::dm::IVisitor*) (TypeProcStmtAssign.cpp:44)
-==960358==    by 0x1213E6C2: zsp::arl::eval::EvalTypeProcStmt::eval() (EvalTypeProcStmt.cpp:65)
-==960358==    by 0x1214130B: zsp::arl::eval::EvalTypeProcStmtScope::eval() (EvalTypeProcStmtScope.cpp:69)
-==960358==    by 0x12131097: zsp::arl::eval::EvalTypeExecList::visitTypeExecProc(zsp::arl::dm::ITypeExecProc*) (EvalTypeExecList.cpp:100)
-==960358==    by 0xEEA1A68: zsp::arl::dm::TypeExecProc::accept(vsc::dm::IVisitor*) (TypeExecProc.cpp:42)
-==960358==    by 0x12130C58: zsp::arl::eval::EvalTypeExecList::eval() (EvalTypeExecList.cpp:64)
-==960358==    by 0x1212F5EE: zsp::arl::eval::EvalTypeActionIncrElab::eval() (EvalTypeActionIncrElab.cpp:96)
-==960358== 
-==960358== Conditional jump or move depends on uninitialised value(s)
-==960358==    at 0x612E129: _itoa_word (in /usr/lib64/libc-2.28.so)
-==960358==    by 0x6131BBB: vfprintf (in /usr/lib64/libc-2.28.so)
-==960358==    by 0xE930F19: dmgr::DebugOutFile::debug(dmgr::IDebug*, char const*, __va_list_tag*) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0xE92FAFE: dmgr::Debug::debug(char const*, ...) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0x1213F032: zsp::arl::eval::EvalTypeProcStmt::visitTypeProcStmtAssign(zsp::arl::dm::ITypeProcStmtAssign*) (EvalTypeProcStmt.cpp:124)
-==960358==    by 0xEED53A6: zsp::arl::dm::TypeProcStmtAssign::accept(vsc::dm::IVisitor*) (TypeProcStmtAssign.cpp:44)
-==960358==    by 0x1213E6C2: zsp::arl::eval::EvalTypeProcStmt::eval() (EvalTypeProcStmt.cpp:65)
-==960358==    by 0x1214130B: zsp::arl::eval::EvalTypeProcStmtScope::eval() (EvalTypeProcStmtScope.cpp:69)
-==960358==    by 0x12131097: zsp::arl::eval::EvalTypeExecList::visitTypeExecProc(zsp::arl::dm::ITypeExecProc*) (EvalTypeExecList.cpp:100)
-==960358==    by 0xEEA1A68: zsp::arl::dm::TypeExecProc::accept(vsc::dm::IVisitor*) (TypeExecProc.cpp:42)
-==960358==    by 0x12130C58: zsp::arl::eval::EvalTypeExecList::eval() (EvalTypeExecList.cpp:64)
-==960358==    by 0x1212F5EE: zsp::arl::eval::EvalTypeActionIncrElab::eval() (EvalTypeActionIncrElab.cpp:96)
-==960358== 
-==960358== Conditional jump or move depends on uninitialised value(s)
-==960358==    at 0x6132893: vfprintf (in /usr/lib64/libc-2.28.so)
-==960358==    by 0xE930F19: dmgr::DebugOutFile::debug(dmgr::IDebug*, char const*, __va_list_tag*) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0xE92FAFE: dmgr::Debug::debug(char const*, ...) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0x1213F032: zsp::arl::eval::EvalTypeProcStmt::visitTypeProcStmtAssign(zsp::arl::dm::ITypeProcStmtAssign*) (EvalTypeProcStmt.cpp:124)
-==960358==    by 0xEED53A6: zsp::arl::dm::TypeProcStmtAssign::accept(vsc::dm::IVisitor*) (TypeProcStmtAssign.cpp:44)
-==960358==    by 0x1213E6C2: zsp::arl::eval::EvalTypeProcStmt::eval() (EvalTypeProcStmt.cpp:65)
-==960358==    by 0x1214130B: zsp::arl::eval::EvalTypeProcStmtScope::eval() (EvalTypeProcStmtScope.cpp:69)
-==960358==    by 0x12131097: zsp::arl::eval::EvalTypeExecList::visitTypeExecProc(zsp::arl::dm::ITypeExecProc*) (EvalTypeExecList.cpp:100)
-==960358==    by 0xEEA1A68: zsp::arl::dm::TypeExecProc::accept(vsc::dm::IVisitor*) (TypeExecProc.cpp:42)
-==960358==    by 0x12130C58: zsp::arl::eval::EvalTypeExecList::eval() (EvalTypeExecList.cpp:64)
-==960358==    by 0x1212F5EE: zsp::arl::eval::EvalTypeActionIncrElab::eval() (EvalTypeActionIncrElab.cpp:96)
-==960358==    by 0x121299E2: zsp::arl::eval::EvalContextIncrElab::eval() (EvalContextIncrElab.cpp:169)
-==960358== 
-==960358== Conditional jump or move depends on uninitialised value(s)
-==960358==    at 0x6131D1C: vfprintf (in /usr/lib64/libc-2.28.so)
-==960358==    by 0xE930F19: dmgr::DebugOutFile::debug(dmgr::IDebug*, char const*, __va_list_tag*) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0xE92FAFE: dmgr::Debug::debug(char const*, ...) (in /project/fun/zuspec/zuspec-py/packages/debug-mgr/python/debug_mgr/libdebug-mgr.so)
-==960358==    by 0x1213F032: zsp::arl::eval::EvalTypeProcStmt::visitTypeProcStmtAssign(zsp::arl::dm::ITypeProcStmtAssign*) (EvalTypeProcStmt.cpp:124)
-==960358==    by 0xEED53A6: zsp::arl::dm::TypeProcStmtAssign::accept(vsc::dm::IVisitor*) (TypeProcStmtAssign.cpp:44)
-==960358==    by 0x1213E6C2: zsp::arl::eval::EvalTypeProcStmt::eval() (EvalTypeProcStmt.cpp:65)
-==960358==    by 0x1214130B: zsp::arl::eval::EvalTypeProcStmtScope::eval() (EvalTypeProcStmtScope.cpp:69)
-==960358==    by 0x12131097: zsp::arl::eval::EvalTypeExecList::visitTypeExecProc(zsp::arl::dm::ITypeExecProc*) (EvalTypeExecList.cpp:100)
-==960358==    by 0xEEA1A68: zsp::arl::dm::TypeExecProc::accept(vsc::dm::IVisitor*) (TypeExecProc.cpp:42)
-==960358==    by 0x12130C58: zsp::arl::eval::EvalTypeExecList::eval() (EvalTypeExecList.cpp:64)
-==960358==    by 0x1212F5EE: zsp::arl::eval::EvalTypeActionIncrElab::eval() (EvalTypeActionIncrElab.cpp:96)
-==960358==    by 0x121299E2: zsp::arl::eval::EvalContextIncrElab::eval() (EvalContextIncrElab.cpp:169)
-==960358== 
---> EvalTypeExecList::[-1] eval size=0 idx=0
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbd90
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbd90
---> zsp::arl::eval::EvalContextIncrElab::popEval 0x1ffeffbd90 sz=2
---> zsp::arl::eval::EvalContextIncrElab::setResult sz=1
-<-- zsp::arl::eval::EvalContextIncrElab::setResult
-<-- zsp::arl::eval::EvalContextIncrElab::popEval
-<-- EvalTypeExecList::[1] eval (0)
---> EvalTypeExecList::[-1] eval size=0 idx=0
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbe30
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbe30
---> zsp::arl::eval::EvalContextIncrElab::popEval 0x1ffeffbe30 sz=2
---> zsp::arl::eval::EvalContextIncrElab::setResult sz=1
-<-- zsp::arl::eval::EvalContextIncrElab::setResult
-<-- zsp::arl::eval::EvalContextIncrElab::popEval
-<-- EvalTypeExecList::[1] eval (0)
---> EvalTypeExecList::[-1] eval size=1 idx=0
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbed0
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbed0
---> EvalTypeExecList::visitTypeExecProc
---> EvalTypeProcStmtScope::[-1] eval
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbbe0
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbbe0
---> EvalTypeProcStmt::[-1] eval
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbb20
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbb20
---> EvalTypeProcStmt::visitTYpeProcStmtAssign
---> EvalTypeExpr::[-1] eval (initial=1)
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffb930
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffb930
---> EvalTypeExpr::visitTypeExprVal
-<-- EvalTypeExpr::visitTypeExprVal
---> zsp::arl::eval::EvalContextIncrElab::popEval 0x1ffeffb930 sz=5
---> zsp::arl::eval::EvalContextIncrElab::setResult sz=4
-<-- zsp::arl::eval::EvalContextIncrElab::setResult
-<-- zsp::arl::eval::EvalContextIncrElab::popEval
-<-- EvalTypeExpr::[4] eval 0
-zsp::arl::eval::EvalTypeActionIncrElab: getValProvider
---> zsp::arl::eval::TaskEvalGetLval::eval
---> zsp::arl::eval::TaskEvalGetLval::visitTypeExprFieldRef
-zsp::arl::eval::TaskEvalGetLval: path.size=1 path_idx=0 index=1
-zsp::arl::eval::TaskEvalGetLval: vp=0x1ffeffc040
-<-- zsp::arl::eval::TaskEvalGetLval::visitTypeExprFieldRef
-<-- zsp::arl::eval::TaskEvalGetLval::eval 0x1ffeffb780
-TODO: Check of result kind
-EvalTypeProcStmt: RHS(int): init=126381680
-EvalTypeProcStmt: RHS(int): 2 (lhs=2)
-<-- EvalTypeProcStmt::visitTYpeProcStmtAssign
-EvalTypeProcStmt: popEval
---> zsp::arl::eval::EvalContextIncrElab::popEval 0x1ffeffbb20 sz=4
---> zsp::arl::eval::EvalContextIncrElab::setResult sz=3
-<-- zsp::arl::eval::EvalContextIncrElab::setResult
-<-- zsp::arl::eval::EvalContextIncrElab::popEval
-<-- EvalTypeProcStmt::[3] eval 0
---> EvalTypeProcStmt::[-1] eval
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbb20
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffbb20
---> EvalTypeProcStmt::visitTYpeProcStmtAssign
---> EvalTypeExpr::[-1] eval (initial=1)
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffb930
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffb930
---> EvalTypeExpr::visitTypeExprMethodCallStatic idx=0
---> EvalTypeExpr::[-1] eval (initial=1)
---> zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffb660
-<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x1ffeffb660
---> EvalTypeExpr::visitTypeExprFieldRef
-EvalTypeExpr: Top-down scope
-zsp::arl::eval::EvalTypeActionIncrElab: getValProvider
-EvalTypeExpr:   ref type=0x10d9c870
-<-- EvalTypeExpr::visitTypeExprFieldRef
---> zsp::arl::eval::EvalContextIncrElab::popEval 0x1ffeffb660 sz=6
---> zsp::arl::eval::EvalContextIncrElab::setResult sz=5
-<-- zsp::arl::eval::EvalContextIncrElab::setResult
-<-- zsp::arl::eval::EvalContextIncrElab::popEval
-<-- EvalTypeExpr::[5] eval 0
-Note: push expr result
---> EvalTypeExpr::callFuncReq
---> zsp::arl::eval::EvalContextIncrElab::callFuncReq
-<-- zsp::arl::eval::EvalContextIncrElab::callFuncReq
-EvalTypeExpr: No result yet ... suspend
-<-- EvalTypeExpr::visitTypeExprMethodCallStatic idx=1 haveResult=0
---> zsp::arl::eval::EvalContextIncrElab::suspenable(True)
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9cf0
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9cf0
+zsp::arl::eval::EvalTypeActionIncrElab:   0x27d72b8
+zsp::arl::eval::EvalTypeActionIncrElab: FieldVal: 0x281bdb8
 Component is non-null
 Function: addr_reg_pkg::make_handle_from_claim
 Function: addr_reg_pkg::make_handle_from_handle
@@ -7823,108 +7553,128 @@ Function: addr_reg_pkg::reg_group_c::get_offset_of_instance
 Function: addr_reg_pkg::reg_group_c::get_offset_of_instance_array
 Function: addr_reg_pkg::reg_group_c::set_handle
 Function: executor_pkg::executor
-Function: doit
-Found in locals
 enterThread
-callFuncReq 1
-Param: <vsc_dm.core.DataTypeInt object at 0x72af2c0>
-Invoking the function
-endEval
-zsp::arl::eval::EvalContextIncrElab: haveResult: 0
-<-- zsp::arl::eval::EvalContextIncrElab::suspendEval
-<-- EvalTypeExpr::[4] eval 1
-<-- EvalTypeProcStmt::visitTYpeProcStmtAssign
-EvalTypeProcStmt: suspendEval
---> zsp::arl::eval::EvalContextIncrElab::suspendEval
-zsp::arl::eval::EvalContextIncrElab: haveResult: 0
-<-- zsp::arl::eval::EvalContextIncrElab::suspendEval
-<-- EvalTypeProcStmt::[3] eval 1
-EvalTypeProcStmtScope: suspendEval
---> zsp::arl::eval::EvalContextIncrElab::suspendEval
-zsp::arl::eval::EvalContextIncrElab: haveResult: 0
-<-- zsp::arl::eval::EvalContextIncrElab::suspendEval
-<-- EvalTypeProcStmtScope::[2] eval 1
+Hello from DOIT
+--> EvalTypeExecList::[-1] eval size=0 idx=0
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9a90
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9a90
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9a90 sz=2
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=1
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeExecList::[1] eval (0)
+--> EvalTypeExecList::[-1] eval size=1 idx=0
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9b30
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9b30
+--> EvalTypeExecList::visitTypeExecProc
+--> EvalTypeProcStmtScope::[-1] eval
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a98e0
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a98e0
+--> EvalTypeProcStmt::[-1] eval
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9820
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9820
+--> EvalTypeProcStmt::visitTypeProcStmtAssign idx=0
+--> EvalTypeExpr::[-1] eval (initial=1)
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9630
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9630
+--> EvalTypeExpr::visitTypeExprVal
+<-- EvalTypeExpr::visitTypeExprVal
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9630 sz=5
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=4
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeExpr::[4] eval 0
+EvalTypeProcStmt: pre-GetLval: haveResult: 1
+zsp::arl::eval::EvalTypeActionIncrElab: getValProvider
+--> zsp::arl::eval::TaskEvalGetLval::eval
+--> zsp::arl::eval::TaskEvalGetLval::visitTypeExprFieldRef
+zsp::arl::eval::TaskEvalGetLval: path.size=1 path_idx=0 index=1
+zsp::arl::eval::TaskEvalGetLval: vp=0x7ffce80a9d40
+<-- zsp::arl::eval::TaskEvalGetLval::visitTypeExprFieldRef
+<-- zsp::arl::eval::TaskEvalGetLval::eval 0x7ffce80a9480
+EvalTypeProcStmt: post-GetLval: haveResult: 1
+TODO: Check of result kind
+EvalTypeProcStmt: RHS(int): init=1620390176
+EvalTypeProcStmt: RHS(int): 2 (lhs=2)
+EvalTypeProcStmt: Ready
+EvalTypeProcStmt: setVoidResult
+EvalTypeProcStmt: haveResult: 1
+<-- EvalTypeProcStmt::visitTypeProcStmtAssign
+EvalTypeProcStmt: popEval
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9820 sz=4
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=3
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeProcStmt::[3] eval 0
+--> EvalTypeProcStmt::[-1] eval
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9820
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9820
+--> EvalTypeProcStmt::visitTypeProcStmtAssign idx=0
+--> EvalTypeExpr::[-1] eval (initial=1)
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9630
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9630
+--> EvalTypeExpr::visitTypeExprPythonMethodCall
+--> EvalTypeExpr::[-1] eval (initial=1)
+--> zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9300
+<-- zsp::arl::eval::EvalContextIncrElab::pushEval 0x7ffce80a9300
+--> EvalTypeExpr::visitTypeExprPyImportRef
+<-- EvalTypeExpr::visitTypeExprPyImportRef
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9300 sz=6
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=5
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeExpr::[5] eval 0
+EvalTypeExpr: obj=0x7f8a67ce4b80
+EvalTypeExpr: ret=0x7f8a69618540
+<-- EvalTypeExpr::visitTypeExprPythonMethodCall
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9630 sz=5
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=4
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeExpr::[4] eval 0
+EvalTypeProcStmt: pre-GetLval: haveResult: 1
+zsp::arl::eval::EvalTypeActionIncrElab: getValProvider
+--> zsp::arl::eval::TaskEvalGetLval::eval
+--> zsp::arl::eval::TaskEvalGetLval::visitTypeExprFieldRef
+zsp::arl::eval::TaskEvalGetLval: path.size=1 path_idx=0 index=2
+zsp::arl::eval::TaskEvalGetLval: vp=0x7ffce80a9d40
+<-- zsp::arl::eval::TaskEvalGetLval::visitTypeExprFieldRef
+<-- zsp::arl::eval::TaskEvalGetLval::eval 0x7ffce80a9480
+EvalTypeProcStmt: post-GetLval: haveResult: 1
+TODO: Check of result kind
+EvalTypeProcStmt: RHS(int): init=32650
+EvalTypeProcStmt: RHS(int): 0 (lhs=0)
+EvalTypeProcStmt: Ready
+EvalTypeProcStmt: setVoidResult
+EvalTypeProcStmt: haveResult: 1
+<-- EvalTypeProcStmt::visitTypeProcStmtAssign
+EvalTypeProcStmt: popEval
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9820 sz=4
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=3
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeProcStmt::[3] eval 0
+EvalTypeProcStmtScope: popEval
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a98e0 sz=3
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=2
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeProcStmtScope::[2] eval 0
 <-- EvalTypeExecList::visitTypeExecProc
---> zsp::arl::eval::EvalContextIncrElab::suspendEval
-zsp::arl::eval::EvalContextIncrElab: haveResult: 0
-<-- zsp::arl::eval::EvalContextIncrElab::suspendEval
-<-- EvalTypeExecList::[1] eval (1)
-zsp::arl::eval::EvalTypeActionIncrElab: Suspend due to execs
---> zsp::arl::eval::EvalContextIncrElab::suspendEval
-zsp::arl::eval::EvalContextIncrElab: haveResult: 0
-<-- zsp::arl::eval::EvalContextIncrElab::suspendEval
-<-- zsp::arl::eval::EvalTypeActionIncrElab::eval 1
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9b30 sz=2
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=1
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- EvalTypeExecList::[1] eval (0)
+--> zsp::arl::eval::EvalContextIncrElab::popEval 0x7ffce80a9cf0 sz=1
+--> zsp::arl::eval::EvalContextIncrElab::setResult sz=0
+<-- zsp::arl::eval::EvalContextIncrElab::setResult
+<-- zsp::arl::eval::EvalContextIncrElab::popEval
+<-- zsp::arl::eval::EvalTypeActionIncrElab::eval 0
 zsp::arl::eval::EvalContextIncrElab: Flush
-toPyVal: <vsc_dm.core.DataTypeInt object at 0x10dcc3c0>
-doit: 2
-v=3 ret=<vsc_dm.core.ValRefInt object at 0x76ddff0>
-Coroutine is done
-<-- zsp::arl::eval::EvalContextIncrElab::[5] eval (1)
---> zsp::arl::eval::EvalContextIncrElab::[5] eval
-zsp::arl::eval::EvalContextIncrElab: m_eval_s size=5
---> zsp::arl::eval::EvalContextIncrElab::sub-eval 4
---> EvalTypeExpr::[4] eval (initial=0)
---> EvalTypeExpr::visitTypeExprMethodCallStatic idx=1
-<-- EvalTypeExpr::callFuncReq
-<-- EvalTypeExpr::visitTypeExprMethodCallStatic idx=1 haveResult=0
-<-- EvalTypeExpr::[4] eval 1
-<-- zsp::arl::eval::EvalContextIncrElab::sub-eval 4 -- more work
---> zsp::arl::eval::EvalContextIncrElab::haveError
-zsp::arl::eval::EvalContextIncrElab: Get level 5
-<-- zsp::arl::eval::EvalContextIncrElab::haveError 0
-zsp::arl::eval::EvalContextIncrElab: Flush
-<-- zsp::arl::eval::EvalContextIncrElab::[5] eval (1)
---> zsp::arl::eval::EvalContextIncrElab::[5] eval
-zsp::arl::eval::EvalContextIncrElab: m_eval_s size=5
---> zsp::arl::eval::EvalContextIncrElab::sub-eval 4
---> EvalTypeExpr::[4] eval (initial=0)
---> EvalTypeExpr::visitTypeExprMethodCallStatic idx=1
-<-- EvalTypeExpr::callFuncReq
-<-- EvalTypeExpr::visitTypeExprMethodCallStatic idx=1 haveResult=0
-<-- EvalTypeExpr::[4] eval 1
-<-- zsp::arl::eval::EvalContextIncrElab::sub-eval 4 -- more work
---> zsp::arl::eval::EvalContextIncrElab::haveError
-zsp::arl::eval::EvalContextIncrElab: Get level 5
-<-- zsp::arl::eval::EvalContextIncrElab::haveError 0
-zsp::arl::eval::EvalContextIncrElab: Flush
-E
-======================================================================
-ERROR: test_smoke (unit.test_smoke.TestSmoke.test_smoke)
+.
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/project/fun/zuspec/zuspec-py/tests/unit/test_smoke.py", line 54, in test_smoke
-    self.runActor(actor)
-  File "/project/fun/zuspec/zuspec-py/tests/unit/test_base.py", line 77, in runActor
-    loop.run_until_complete(actor.run("0"))
-  File "/project/tools/python/3.12.0/lib/python3.12/asyncio/base_events.py", line 664, in run_until_complete
-    return future.result()
-           ^^^^^^^^^^^^^^^
-  File "/project/fun/zuspec/zuspec-py/src/zspy/actor.py", line 50, in run
-    await runner.run(self._action_t, randstate)
-  File "/project/fun/zuspec/zuspec-py/packages/zuspec-be-py/src/zsp_be_py/impl/runner.py", line 100, in run
-    raise Exception("stall during execution")
-Exception: stall during execution
+Ran 1 test in 0.294s
 
-----------------------------------------------------------------------
-Ran 1 test in 13.934s
-
-FAILED (errors=1)
-<-- zsp::arl::eval::EvalContextIncrElab::[5] eval (1)
-==960358== 
-==960358== HEAP SUMMARY:
-==960358==     in use at exit: 3,614,054 bytes in 34,210 blocks
-==960358==   total heap usage: 550,396 allocs, 516,186 frees, 271,774,421 bytes allocated
-==960358== 
-==960358== LEAK SUMMARY:
-==960358==    definitely lost: 383,437 bytes in 7,077 blocks
-==960358==    indirectly lost: 22,985 bytes in 456 blocks
-==960358==      possibly lost: 2,439,560 bytes in 19,744 blocks
-==960358==    still reachable: 767,864 bytes in 6,932 blocks
-==960358==                       of which reachable via heuristic:
-==960358==                         multipleinheritance: 944 bytes in 7 blocks
-==960358==         suppressed: 208 bytes in 1 blocks
-==960358== Rerun with --leak-check=full to see details of leaked memory
-==960358== 
-==960358== Use --track-origins=yes to see where uninitialised values come from
-==960358== For lists of detected and suppressed errors, rerun with: -s
-==960358== ERROR SUMMARY: 21 errors from 5 contexts (suppressed: 4 from 4)
+OK
+<-- zsp::arl::eval::EvalContextIncrElab::[0] eval (0)

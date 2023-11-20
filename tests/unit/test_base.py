@@ -37,8 +37,7 @@ class TestBase(unittest.TestCase):
         self.testdir = os.path.join(self.rundir, "_".join(self.id().split('.')))
 
         self._dmgr = dmgr.Factory.inst().getDebugMgr()
-        print("enable(True)")
-        self._dmgr.enable(True)
+        self._dmgr.enable(False)
 
         self.envcfg = EnvConfigTest()
         EnvConfig.init(self.envcfg)

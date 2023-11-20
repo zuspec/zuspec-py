@@ -27,17 +27,25 @@ class Actor(object):
     def __init__(self, comp_t, action_t):
         self._comp_t = comp_t
         self._action_t = action_t
+        self._pymodules = {}
+
+    def addPyModule(self, name, obj):
+        self._pymodules[name] = obj
 
     async def run(self, seed=None):
         # Get the active configuration, probing the
         # environment if necessary
         envcfg = EnvConfig.inst()
 
+
         runner = Runner(
             self._comp_t,
             None,
             ctxt=envcfg.getContext(),
             backend=envcfg.getRunnerBackend())
+        
+        for key,val in self._pymodules.items():
+            runner.addPyModule(key, val)
 
         if seed is not None:
             # Explicitly seeded

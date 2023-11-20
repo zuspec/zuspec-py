@@ -1,7 +1,7 @@
 #****************************************************************************
-#* test_smoke.py
+#* test_py_eval.py
 #*
-#* Copyright 2022 Matthew Ballance and Contributors
+#* Copyright 2023 Matthew Ballance and Contributors
 #*
 #* Licensed under the Apache License, Version 2.0 (the "License"); you may 
 #* not use this file except in compliance with the License.  
@@ -20,39 +20,39 @@
 #*
 #****************************************************************************
 import zspy
+from .local_closure import LocalClosure
 from .test_base import TestBase
 
-class TestSmoke(TestBase):
+class TestPyEval(TestBase):
 
     def test_smoke(self):
-
-        async def doit(i : int) -> int:
-            print("doit: %s" % str(i))
-#            print("doit: ")
-            return i+1
-            pass
-
         content = """
-        function void doit(int i);
-        import target function doit;
+        pyimport local;
 
         component pss_top {
             action Entry {
                 rand int i = 2, j;
-                exec body {
+                exec post_solve {
                     i = 2;
-                    j = doit(i);
-                    i = doit(j);
-                    j = doit(i);
+//                    j = local::doit();
+                    j = local::doit(i);
+//                    i = local::doit(j);
+//                    j = local::doit(i);
                 }
-
             }
         }
         """
-        self.enableDebug(False)
+
+        def doit():
+            print("Hello from DOIT", flush=True)
+            return 1
+            pass
+
+        self.enableDebug(True)
         self.loadContent(content)
+
         actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.addPyModule("local", LocalClosure())
         self.runActor(actor)
 
-        pass
 
