@@ -5,6 +5,7 @@
             "includePath": [
                 "${default}",
                 "packages/debug-mgr/src/include",
+                "packages/pyapi-compat-if/src/include",
                 "packages/vsc-dm/src/include",
                 "packages/vsc-solvers/src/include",
                 "packages/zuspec-arl-dm/src/include",
