@@ -28,9 +28,18 @@ class Actor(object):
         self._comp_t = comp_t
         self._action_t = action_t
         self._pymodules = {}
+        self._out_fp = None
 
     def addPyModule(self, name, obj):
         self._pymodules[name] = obj
+
+    @property
+    def outfp(self):
+        return self._out_fp
+    
+    @outfp.setter
+    def outfp(self, fp):
+        self._out_fp = fp
 
     async def run(self, seed=None):
         # Get the active configuration, probing the
@@ -43,6 +52,7 @@ class Actor(object):
             None,
             ctxt=envcfg.getContext(),
             backend=envcfg.getRunnerBackend())
+        runner.setMsgFP(self._out_fp)
         
         for key,val in self._pymodules.items():
             runner.addPyModule(key, val)

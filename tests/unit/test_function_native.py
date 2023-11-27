@@ -20,6 +20,7 @@
 #*
 #****************************************************************************
 import zspy
+import io
 from .local_closure import LocalClosure
 from .test_base import TestBase
 
@@ -55,4 +56,64 @@ class TestFunctionNative(TestBase):
         actor.addPyModule("local", LocalClosure())
         self.runActor(actor)
 
+    def test_return_int(self):
+        content = """
+        import std_pkg::*;
+        function int inc(int i) {
+            return i+1;
+        }
 
+        component pss_top {
+            action Entry {
+                exec post_solve {
+                    print("val: %d", inc(2));
+                }
+            }
+        }
+        """
+
+        self.enableDebug(True)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 3")
+
+    def test_local_var_int(self):
+        content = """
+        import std_pkg::*;
+        function int inc(int i) {
+            int j;
+            j = i;
+            return j+1;
+        }
+
+        component pss_top {
+            action Entry {
+                exec post_solve {
+                    print("val: %d", inc(2));
+                }
+            }
+        }
+        """
+
+        self.enableDebug(True)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 3")
