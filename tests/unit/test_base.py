@@ -68,8 +68,8 @@ class TestBase(unittest.TestCase):
         with open(full_path, "w") as fp:
             fp.write(content)
 
-    def loadContent(self, content):
-        self.envcfg.loadContent(content)
+    def loadContent(self, content, load_stdlib=True):
+        self.envcfg.loadContent(content, load_stdlib)
 
     def runActor(self, actor):
         loop = asyncio.get_event_loop()

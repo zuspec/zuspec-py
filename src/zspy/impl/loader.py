@@ -36,7 +36,7 @@ class Loader(object):
         self._ast_f = self._zspp_f.getAstFactory()
         pass
 
-    def load(self, *args, **kwargs):
+    def load(self, load_stdlib, *args, **kwargs):
 
         marker_c = self._zspp_f.mkMarkerCollector()
 
@@ -45,11 +45,12 @@ class Loader(object):
         roots = []
 
         # First, load up the core package
-        scope = self._ast_f.mkGlobalScope(len(roots));
-        self._zspp_f.loadStandardLibrary(
-            ast_builder,
-            scope)
-        roots.append(scope)
+        if load_stdlib:
+            scope = self._ast_f.mkGlobalScope(len(roots));
+            self._zspp_f.loadStandardLibrary(
+                ast_builder,
+                scope)
+            roots.append(scope)
 
         if marker_c.hasSeverity(zspp.MarkerSeverityE.Error):
             raise Exception("Failed to load core library")

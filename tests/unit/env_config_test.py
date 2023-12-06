@@ -43,9 +43,9 @@ class EnvConfigTest(EnvConfigProvider):
             raise Exception("No content loaded")
         return self._context
 
-    def loadContent(self, content):
+    def loadContent(self, content, load_stdlib=True):
         loader = Loader()
-        self._context = loader.load(content)
+        self._context = loader.load(load_stdlib, content)
 
     @classmethod
     def create(cls):
