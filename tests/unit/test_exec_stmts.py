@@ -117,3 +117,61 @@ class TestExecStmts(TestBase):
         result = out.getvalue().strip()
 
         self.assertEqual(result, "val: 0\nval: 1")
+
+    def test_exec_local_var(self):
+        content = """
+        import std_pkg::*;
+
+        component pss_top {
+            action Entry {
+                exec post_solve {
+                    int a;
+                    a = 5;
+                    print("val: %d", a);
+                }
+            }
+        }
+        """
+        self.enableDebug(False)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+#        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 5")
+
+    def test_exec_local_aggregate_var(self):
+        content = """
+        import std_pkg::*;
+
+        struct S { int a; }
+
+        component pss_top {
+            action Entry {
+                exec post_solve {
+                    S s;
+                    s.a = 5;
+                    print("val: %d", s.a);
+                }
+            }
+        }
+        """
+        self.enableDebug(True)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+#        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 5")

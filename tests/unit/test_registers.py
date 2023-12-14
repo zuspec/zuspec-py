@@ -19,6 +19,7 @@
 #*     Author: 
 #*
 #****************************************************************************
+import io
 import zspy
 from .test_base import TestBase
 from .local_closure import LocalClosure
@@ -33,23 +34,18 @@ class TestRegisters(TestBase):
             pass
 
         async def write64(addr, data):
-            print("write64 %d %d" % (addr, data))
+            print("write64 0x%08x %d" % (addr, data))
+
+        async def read64(addr):
+            print("read64 %d" % addr)
+            return 20
 
         content = """
         import addr_reg_pkg::*;
-
-        /*
-        function bit[64] get_offset(string name) {
-            if (name == "r1") {
-                return 0;
-            } else if (name == "r2") {
-                return 4;
-            }
-            return 0xFFFF_FFFF;
-        }
-         */
+        import std_pkg::*;
 
         component my_regs : reg_group_c {
+
             reg_c<bit[64]>      r1;
             reg_c<bit[64]>      r2;
             pure function bit[64] get_offset_of_instance(string name) {
@@ -63,25 +59,47 @@ class TestRegisters(TestBase):
             }
 
             pure function bit[64] get_offset_of_instance_array(string name, int index) {
-                return 5;
+                return 0xFFFF_FFFF_FFFF_FFFF;
             }
         }
 
         component pss_top {
-            my_regs     xxx;
+            transparent_addr_space_c<>      aspace;
+            my_regs                         xxx;
+
+            exec init_down {
+                transparent_addr_region_s<> region;
+                addr_handle_t reg_region;
+
+                region.addr = 0x1000_0000;
+                region.size = 0x1000;
+//                reg_region = aspace.add_nonallocatable_region(region);
+                aspace.add_nonallocatable_region(region);
+
+                print("init_down running");
+                xxx.set_handle(0x1000);
+            }
 
             action Entry {
                 exec body {
-                    comp.xxx.r1.write_val(0);
-//                    get_offset("r1");
+                    bit[32]     val;
+
+                    comp.xxx.r2.write_val(25);
+                    comp.xxx.r1.write_val(20);
+                    val = comp.xxx.r1.read_val();
+                    print("val: %d", val);
                 }
             }
         }
         """
-        self.enableDebug(True)
+        self.enableDebug(False)
         self.loadContent(content)
+        out = io.StringIO()
         actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.out_fp = out
         self.runActor(actor)
+
+        print("Output:\n%s" % out.getvalue())
 
     def test_func_impl(self):
         async def doit(i : int) -> int:
