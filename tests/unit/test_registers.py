@@ -51,8 +51,7 @@ class TestRegisters(TestBase):
             pure function bit[64] get_offset_of_instance(string name) {
                 if (name == "r1") {
                     return 0;
-                } 
-                if (name == "r2") {
+                } else if (name == "r2") {
                     return 4;
                 }
                 return 0xFFFF_FFFF_FFFF_FFFF;
@@ -71,16 +70,17 @@ class TestRegisters(TestBase):
                 transparent_addr_region_s<> region;
                 addr_handle_t reg_region;
 
-                region.addr = 0x1000_0000;
-                region.size = 0x1000;
+                region.addr = 0xaabb_ccdd;
+                region.size = 0xFFEE55aa;
 //                reg_region = aspace.add_nonallocatable_region(region);
-                aspace.add_nonallocatable_region(region);
+                reg_region = aspace.add_nonallocatable_region(region);
 
-                print("init_down running");
-                xxx.set_handle(0x1000);
+//                print("init_down running");
+//                xxx.set_handle(0x1000);
             }
 
             action Entry {
+/*
                 exec body {
                     bit[32]     val;
 
@@ -89,10 +89,11 @@ class TestRegisters(TestBase):
                     val = comp.xxx.r1.read_val();
                     print("val: %d", val);
                 }
+ */
             }
         }
         """
-        self.enableDebug(False)
+        self.enableDebug(True)
         self.loadContent(content)
         out = io.StringIO()
         actor = zspy.Actor("pss_top", "pss_top::Entry")

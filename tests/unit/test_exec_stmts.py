@@ -76,7 +76,7 @@ class TestExecStmts(TestBase):
             }
         }
         """
-        self.enableDebug(False)
+        self.enableDebug(True)
         self.loadContent(content)
 
         out = io.StringIO()
@@ -85,7 +85,7 @@ class TestExecStmts(TestBase):
         actor.outfp = out
         self.runActor(actor)
 
-#        print("Output:\n%s" % out.getvalue())
+        print("Output:\n%s" % out.getvalue())
         result = out.getvalue().strip()
 
         self.assertEqual(result, "val: 1\nval: 1")
