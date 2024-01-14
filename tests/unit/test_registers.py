@@ -102,6 +102,95 @@ class TestRegisters(TestBase):
 
         print("Output:\n%s" % out.getvalue())
 
+    def test_reg_array(self):
+
+        async def write64(addr, data):
+            print("write64 0x%08x %d" % (addr, data))
+
+        async def read64(addr):
+            print("read64 %d" % addr)
+            return 21
+
+        content = """
+        import addr_reg_pkg::*;
+        import std_pkg::*;
+
+        pure component reg_blk : reg_group_c {
+            reg_c<bit[64]>      r1;
+            reg_c<bit[64]>      r2;
+
+            pure function bit[64] get_offset_of_instance(string name) {
+                if (name == "r1") {
+                    return 0;
+                } else if (name == "r2") {
+                    return 4;
+                }
+                return 0xFFFF_FFFF_FFFF_FFFF;
+            }
+        }
+
+        component my_regs : reg_group_c {
+            reg_blk             blks[4];
+
+            pure function bit[64] get_offset_of_instance(string name) {
+                if (name == "r1") {
+                    return 0;
+                } else if (name == "r2") {
+                    return 4;
+                }
+                return 0xFFFF_FFFF_FFFF_FFFF;
+            }
+
+            pure function bit[64] get_offset_of_instance_array(string name, int index) {
+                if (name == "blks") {
+                    return 0x100*index;
+                }
+                return 0xFFFF_FFFF_FFFF_FFFF;
+            }
+        }
+
+        component pss_top {
+            transparent_addr_space_c<>      aspace;
+            my_regs                         xxx;
+
+            exec init_down {
+                transparent_addr_region_s<> region;
+                addr_handle_t reg_region;
+
+                region.addr = 0x1000_0000;
+                region.size = 0x0000_1000;
+//                reg_region = aspace.add_nonallocatable_region(region);
+                reg_region = aspace.add_nonallocatable_region(region);
+
+//                print("init_down running");
+                xxx.set_handle(reg_region);
+            }
+
+            action Entry {
+                exec body {
+                    bit[32]     val;
+
+                    comp.xxx.blks[0].r2.write_val(25);
+                    comp.xxx.blks[0].r1.write_val(20);
+                    comp.xxx.blks[3].r2.write_val(25);
+                    comp.xxx.blks[3].r1.write_val(20);
+                    val = comp.xxx.blks[0].r1.read_val();
+                    print("val: %d", val);
+                }
+/*
+ */
+            }
+        }
+        """
+        self.enableDebug(False)
+        self.loadContent(content)
+        out = io.StringIO()
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.out_fp = out
+        self.runActor(actor)
+
+        print("Output:\n%s" % out.getvalue())
+
     def test_func_impl(self):
         async def doit(i : int) -> int:
             print("doit: %s" % str(i))
