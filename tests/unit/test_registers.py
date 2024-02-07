@@ -20,6 +20,7 @@
 #*
 #****************************************************************************
 import io
+import os
 import zspy
 from .test_base import TestBase
 from .local_closure import LocalClosure
@@ -220,3 +221,43 @@ class TestRegisters(TestBase):
         self.loadContent(content, False)
         actor = zspy.Actor("pss_top", "pss_top::Entry")
         self.runActor(actor)
+
+    def test_fwperiph_dma_regs(self):
+        async def write32(addr, data):
+            pass
+
+        content = """
+import addr_reg_pkg::*;
+component pss_top {
+    transparent_addr_space_c<>      aspace;
+    addr_handle_t                   base;
+    fwperiph_dma_map                regs;
+
+    exec init_down {
+        transparent_addr_region_s<>     region;
+
+        region.addr = 0x0;
+        region.size = 0x1_0000_0000;
+        base = aspace.add_nonallocatable_region(region);
+        regs.set_handle(base);
+    }
+
+    action Entry {
+        exec body {
+            comp.regs.int_msk_a.write_val(32);
+        }
+    }
+}
+"""
+
+        files = [
+            os.path.join(self.datadir, "registers/fwperiph_dma_ral.pss"),
+            content
+        ]
+
+        self.enableDebug(False)
+        self.loadContent(files, load_stdlib=True)
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        self.runActor(actor)
+

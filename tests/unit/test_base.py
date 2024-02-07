@@ -33,6 +33,7 @@ class TestBase(unittest.TestCase):
     def setUp(self) -> None:
 #        from zuspec.impl.ctxt import Ctxt
         tests_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.datadir = os.path.join(tests_dir, "unit/data")
         self.rundir = os.path.join(tests_dir, "rundir")
         self.testdir = os.path.join(self.rundir, "_".join(self.id().split('.')))
 

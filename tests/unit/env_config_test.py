@@ -45,7 +45,10 @@ class EnvConfigTest(EnvConfigProvider):
 
     def loadContent(self, content, load_stdlib=True):
         loader = Loader()
-        self._context = loader.load(load_stdlib, content)
+        if isinstance(content, list):
+            self._context = loader.load(load_stdlib, *content)
+        else:
+            self._context = loader.load(load_stdlib, content)
 
     @classmethod
     def create(cls):

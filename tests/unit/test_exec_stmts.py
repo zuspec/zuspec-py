@@ -59,6 +59,43 @@ class TestExecStmts(TestBase):
 
         self.assertEqual(result, "val: 1\nval: 2")
 
+    def test_str_if_elseif_else(self):
+        content = """
+        import std_pkg::*;
+        function int tst(string s) {
+            if (s == "a") {
+              return 1;
+            } else if (s == "b") {
+              return 2;
+            } else {
+              return 3;
+            }
+        }
+
+        component pss_top {
+            action Entry {
+                exec post_solve {
+                    print("val: %d", tst("a"));
+                    print("val: %d", tst("b"));
+                    print("val: %d", tst("c"));
+                }
+            }
+        }
+        """
+        self.enableDebug(False)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+#        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 1\nval: 2\nval: 3")
+
     def test_early_return(self):
         content = """
         import std_pkg::*;
