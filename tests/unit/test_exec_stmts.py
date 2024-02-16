@@ -45,7 +45,7 @@ class TestExecStmts(TestBase):
             }
         }
         """
-        self.enableDebug(False)
+        self.enableDebug(True)
         self.loadContent(content)
 
         out = io.StringIO()
@@ -212,3 +212,60 @@ class TestExecStmts(TestBase):
         result = out.getvalue().strip()
 
         self.assertEqual(result, "val: 5")
+
+    def test_exec_local_array_int(self):
+        content = """
+        import std_pkg::*;
+
+        component pss_top {
+            action Entry {
+                exec post_solve {
+                    int arr[3];
+                    arr[0] = 1;
+                    arr[1] = 2;
+                    arr[2] = 3;
+                    print("val: %d", arr[1]);
+                }
+            }
+        }
+        """
+        self.enableDebug(True)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+#        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 2")
+
+    def test_comp_attr_ref(self):
+        content = """
+        import std_pkg::*;
+
+        component pss_top {
+            int a = 1;
+            action Entry {
+                exec post_solve {
+                    print("val: %d", comp.a);
+                }
+            }
+        }
+        """
+        self.enableDebug(True)
+        self.loadContent(content)
+
+        out = io.StringIO()
+
+        actor = zspy.Actor("pss_top", "pss_top::Entry")
+        actor.outfp = out
+        self.runActor(actor)
+
+#        print("Output:\n%s" % out.getvalue())
+        result = out.getvalue().strip()
+
+        self.assertEqual(result, "val: 1")

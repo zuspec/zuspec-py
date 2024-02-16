@@ -35,7 +35,7 @@ class TestRegisters(TestBase):
             pass
 
         async def write64(addr, data):
-            print("write64 0x%08x %d" % (addr, data))
+            print("write64 0x%08x %d" % (addr, data), flush=True)
 
         async def read64(addr):
             print("read64 %d" % addr)
@@ -73,11 +73,15 @@ class TestRegisters(TestBase):
 
                 region.addr = 0x1000_0000;
                 region.size = 0x0000_1000;
+/*
 //                reg_region = aspace.add_nonallocatable_region(region);
+ */
                 reg_region = aspace.add_nonallocatable_region(region);
 
-//                print("init_down running");
+                print("init_down running");
                 xxx.set_handle(reg_region);
+                /*
+                 */
             }
 
             action Entry {
@@ -86,22 +90,24 @@ class TestRegisters(TestBase):
 
                     comp.xxx.r2.write_val(25);
                     comp.xxx.r1.write_val(20);
+                    /*
                     val = comp.xxx.r1.read_val();
                     print("val: %d", val);
+                     */
                 }
 /*
  */
             }
         }
         """
-        self.enableDebug(False)
+        self.enableDebug(True)
         self.loadContent(content)
         out = io.StringIO()
         actor = zspy.Actor("pss_top", "pss_top::Entry")
-        actor.out_fp = out
+        actor.outfp = out
         self.runActor(actor)
 
-        print("Output:\n%s" % out.getvalue())
+        print("Output:\n%s" % out.getvalue(), flush=True)
 
     def test_reg_array(self):
 
