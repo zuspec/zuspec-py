@@ -9,6 +9,7 @@ proj_dir = os.path.dirname(os.path.abspath(__file__))
 try:
     import sys
     sys.path.insert(0, os.path.join(proj_dir, "src/zspy"))
+    print("Path: %s" % str(sys.path))
     from __build_num__ import BUILD_NUM
     version += ".%s" % str(BUILD_NUM)
 except ImportError as e:
