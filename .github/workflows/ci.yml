@@ -17,7 +17,7 @@ jobs:
         BUILD_NUM: GITHUB_RUN_ID
       run: |
         #python3 -m pip install ivpm
-        python3 -m pip install wheel twine
+        python3 -m pip install wheel twine setuptools --upgrade
         #python3 -m ivpm update -a
         #./packages/python/bin/python3 -m pip install wheel twine
         echo "BUILD_NUM=$BUILD_NUM" > src/zspy/__build_num__.py
