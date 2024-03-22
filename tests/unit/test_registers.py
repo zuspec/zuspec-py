@@ -182,9 +182,9 @@ class TestRegisters(TestBase):
 
                     comp.xxx.blks[0].r2.write_val(25);
                     comp.xxx.blks[1].r2.write_val(25);
-                    /*
                     comp.xxx.blks[0].r1.write_val(20);
-                    comp.xxx.blks[3].r2.write_val(25);
+                    comp.xxx.blks[3].r1.write_val(25);
+                    /*
                     comp.xxx.blks[3].r1.write_val(20);
                     val = comp.xxx.blks[0].r1.read_val();
                     print("val: %d", val);
@@ -236,6 +236,7 @@ class TestRegisters(TestBase):
 
     def test_fwperiph_dma_regs(self):
         async def write32(addr, data):
+            print("write32: 0x%08x 0x%08x" % (addr, data), flush=True)
             pass
 
         content = """
@@ -257,6 +258,7 @@ component pss_top {
     action Entry {
         exec body {
             comp.regs.int_msk_a.write_val(32);
+            comp.regs.int_msk_b.write_val(64);
         }
     }
 }

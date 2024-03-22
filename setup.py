@@ -4,8 +4,15 @@ from setuptools import setup, find_namespace_packages
 
 version="0.0.1"
 
-if "BUILD_NUM" in os.environ.keys():
-    version += "." + os.environ["BUILD_NUM"]
+proj_dir = os.path.dirname(os.path.abspath(__file__))
+
+try:
+    import sys
+    sys.path.insert(0, os.path.join(proj_dir, "src"))
+    from zspy.__build_num__ import BUILD_NUM
+    version += ".%s" % str(BUILD_NUM)
+except ImportError:
+    pass
 
 setup(
   name = "zuspec-py",
@@ -28,7 +35,6 @@ setup(
     'pytypeworks',
     'zuspec-dataclasses',
     'pyvsc-dataclasses',
-    'vsc-dm',
     'vsc-solvers',
     'zuspec-arl-dm',
     'zuspec-arl-eval',
