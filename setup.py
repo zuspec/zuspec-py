@@ -11,7 +11,8 @@ try:
     sys.path.insert(0, os.path.join(proj_dir, "src"))
     from zspy.__build_num__ import BUILD_NUM
     version += ".%s" % str(BUILD_NUM)
-except ImportError:
+except ImportError as e:
+    print("Import error: %s" % str(e))
     pass
 
 setup(
