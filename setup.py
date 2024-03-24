@@ -2,7 +2,7 @@
 import os
 from setuptools import setup, find_namespace_packages
 
-version="0.0.2"
+version="0.0.3"
 
 proj_dir = os.path.dirname(os.path.abspath(__file__))
 
