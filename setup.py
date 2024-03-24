@@ -40,7 +40,6 @@ setup(
     'vsc-solvers',
     'zuspec-arl-dm',
     'zuspec-arl-eval',
-    'zuspec-be-sw',
     'zuspec-fe-parser',
     'zuspec-parser'
   ],
